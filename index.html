@@ -47,29 +47,19 @@
 
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
   a { color: var(--ember-2); }
-  /* 日本語は普通に流し込み (禁則だけ整える。語中の折り返しは強制しない) */
-  .bio p, .career .what, .card p { line-break: strict; }
+  .bio p, .career .what, .card p, .pub { line-break: strict; }
 
   /* ── Hero ── */
   header.hero { padding: 6.5rem 0 2.6rem; }
-  .kicker {
-    font-size: 0.74rem; letter-spacing: 0.42em; text-transform: uppercase;
-    color: var(--copper); font-weight: 500; margin-bottom: 1.1rem;
-  }
+  .kicker { font-size: 0.74rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--copper); font-weight: 500; margin-bottom: 1.1rem; }
   h1.name {
-    font-family: var(--serif);
-    font-size: clamp(2.9rem, 8vw, 5.4rem);
+    font-family: var(--serif); font-size: clamp(2.9rem, 8vw, 5.4rem);
     line-height: 0.98; font-weight: 400; letter-spacing: -0.01em;
     background: linear-gradient(180deg, #f6ede0 0%, #d9b893 78%, var(--copper) 130%);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  h1.name .jp {
-    display: block; font-family: var(--sans); font-weight: 500;
-    font-size: clamp(1rem, 2.4vw, 1.35rem); letter-spacing: 0.06em;
-    color: var(--text-3); margin-top: 0.9rem; -webkit-text-fill-color: var(--text-3);
-  }
-  .rule { height: 1px; border: 0; margin: 2.6rem 0 0;
-    background: linear-gradient(90deg, var(--copper) 0%, var(--border) 38%, transparent 100%); }
+  h1.name .jp { display: block; font-family: var(--sans); font-weight: 500; font-size: clamp(1rem, 2.4vw, 1.35rem); letter-spacing: 0.06em; color: var(--text-3); margin-top: 0.9rem; -webkit-text-fill-color: var(--text-3); }
+  .rule { height: 1px; border: 0; margin: 2.6rem 0 0; background: linear-gradient(90deg, var(--copper) 0%, var(--border) 38%, transparent 100%); }
 
   /* ── Section head ── */
   .sec-head { display: flex; align-items: baseline; gap: 0.8rem; margin: 3.4rem 0 1.4rem; }
@@ -88,16 +78,24 @@
 
   /* ── Career ── */
   .career { list-style: none; }
-  .career li {
-    display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.3rem 1.4rem;
-    padding: 0.95rem 0; border-bottom: 1px solid var(--border); align-items: baseline;
-  }
+  .career li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.3rem 1.4rem; padding: 0.95rem 0; border-bottom: 1px solid var(--border); align-items: baseline; }
   .career li:last-child { border-bottom: 0; }
   .career .when { color: var(--copper); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
   .career .what { color: var(--text); }
   .career .sub { display: block; color: var(--text-3); font-size: 0.88rem; margin-top: 0.4rem; max-width: 44em; }
 
-  /* ── Primary cards ── */
+  /* ── Publications ── */
+  .pubs { list-style: none; counter-reset: pub; }
+  .pub { padding: 1.05rem 0 1.05rem 2.2rem; border-bottom: 1px solid var(--border); position: relative; max-width: 56em; }
+  .pub:last-child { border-bottom: 0; }
+  .pub::before { counter-increment: pub; content: counter(pub); position: absolute; left: 0; top: 1.05rem; color: var(--copper); font-size: 0.8rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .pub .authors { color: var(--text-2); font-size: 0.95rem; }
+  .pub .title { display: block; color: var(--text); font-weight: 500; margin: 0.25rem 0; text-decoration: none; }
+  .pub a.title:hover { color: var(--ember-2); }
+  .pub .venue { color: var(--text-3); font-size: 0.9rem; }
+  .pub .venue i { font-style: italic; color: var(--text-2); }
+
+  /* ── Cards ── */
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
   .card {
     display: flex; flex-direction: column;
@@ -107,40 +105,28 @@
     position: relative; overflow: hidden;
     transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
   }
-  .card::before {
-    content: ""; position: absolute; inset: 0;
-    background: radial-gradient(420px 180px at 0% 0%, var(--glow), transparent 70%);
-    opacity: 0; transition: opacity .25s ease; pointer-events: none;
-  }
-  .card:hover { transform: translateY(-4px); border-color: var(--border-2);
-    box-shadow: 0 14px 34px rgba(0,0,0,0.5), 0 0 0 1px var(--copper-dim) inset; }
+  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 180px at 0% 0%, var(--glow), transparent 70%); opacity: 0; transition: opacity .25s ease; pointer-events: none; }
+  .card:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: 0 14px 34px rgba(0,0,0,0.5), 0 0 0 1px var(--copper-dim) inset; }
   .card:hover::before { opacity: 1; }
   .card:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
   .card .tag { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 0.85rem; }
-  .card h3 { font-size: 1.22rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; letter-spacing: 0.01em; }
-  .card p { color: var(--text-2); font-size: 0.93rem; flex: 1; }
+  .card h3 { font-size: 1.18rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; letter-spacing: 0.01em; }
+  .card p { color: var(--text-2); font-size: 0.92rem; flex: 1; }
   .card .go { margin-top: 1.15rem; font-size: 0.84rem; font-weight: 500; color: var(--ember-2); display: inline-flex; align-items: center; gap: 0.4rem; }
   .card .go .arrow { transition: transform .2s ease; }
   .card:hover .go .arrow { transform: translateX(4px); }
   .card.wip h3::after { content: "工事中"; font-family: var(--sans); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; vertical-align: middle; margin-left: 0.6rem; padding: 0.12rem 0.45rem; border: 1px solid var(--copper-dim); border-radius: 999px; color: var(--copper); }
 
-  /* ── Elsewhere (links list) ── */
+  /* ── Elsewhere ── */
   .links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1.1rem; }
-  .link-row {
-    display: flex; align-items: baseline; gap: 0.7rem;
-    text-decoration: none; padding: 0.85rem 0.4rem;
-    border-bottom: 1px solid var(--border); color: var(--text);
-    transition: color .2s, border-color .2s, padding-left .2s;
-  }
+  .link-row { display: flex; align-items: baseline; gap: 0.7rem; text-decoration: none; padding: 0.85rem 0.4rem; border-bottom: 1px solid var(--border); color: var(--text); transition: color .2s, border-color .2s, padding-left .2s; }
   .link-row:hover { color: var(--ember-2); border-color: var(--copper-dim); padding-left: 0.7rem; }
   .link-row .lbl { font-weight: 500; }
   .link-row .meta { color: var(--text-3); font-size: 0.82rem; margin-left: auto; }
   .link-row:hover .meta { color: var(--text-2); }
 
   /* ── Footer ── */
-  footer { margin-top: 4.2rem; padding: 2.2rem 0 3rem; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem;
-    color: var(--text-3); font-size: 0.85rem; }
+  footer { margin-top: 4.2rem; padding: 2.2rem 0 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem; color: var(--text-3); font-size: 0.85rem; }
   footer a { color: var(--text-2); text-decoration: none; border-bottom: 1px solid var(--border-2); padding-bottom: 1px; }
   footer a:hover { color: var(--ember-2); border-color: var(--copper); }
   footer .cc { color: var(--text-3); }
@@ -167,17 +153,13 @@
 
     <!-- ── 01 Who am I? ── -->
     <section aria-labelledby="who">
-      <div class="sec-head">
-        <span class="idx">01</span>
-        <h2 id="who">Who am I?</h2>
-        <span class="line"></span>
-      </div>
+      <div class="sec-head"><span class="idx">01</span><h2 id="who">Who am I?</h2><span class="line"></span></div>
       <div class="bio">
         <p>
           梅田栄作（Eisaku Umeda）は、東京都立大学 理学研究科 博士課程に在籍する研究者です。専門は数理生物学・進化生態学・植物生態学。
         </p>
         <p>
-          主たる活動として、個体群ベースシミュレーションを用いて、ササタケ類の個体群動態と進化の相互作用を研究しています。日本生態学会・個体群生態学会・数理生物学会に所属。所属研究室の Web サイト制作にも携わっています。
+          主たる活動として、個体群ベースシミュレーションを用いて、ササタケ類の個体群動態と進化の相互作用を研究しています。日本生態学会・個体群生態学会・数理生物学会に所属。
         </p>
         <p>
           また、<a class="penname" href="inui.html">犬井作（Tsukuru Inui）</a>名義で小説を執筆・公開しています。
@@ -191,11 +173,7 @@
 
     <!-- ── 02 経歴 ── -->
     <section aria-labelledby="career">
-      <div class="sec-head">
-        <span class="idx">02</span>
-        <h2 id="career">経歴</h2>
-        <span class="line"></span>
-      </div>
+      <div class="sec-head"><span class="idx">02</span><h2 id="career">経歴</h2><span class="line"></span></div>
       <ol class="career">
         <li>
           <span class="when">高校</span>
@@ -204,33 +182,46 @@
             <span class="sub">在学中、休止していた文芸部を、周囲に迷惑をかけながらも、多くの助けを得て復活させました。</span>
           </div>
         </li>
-        <li>
-          <span class="when">2019.4 – 2023.3</span>
-          <div class="what">東京都立大学 理学部 生命科学</div>
-        </li>
-        <li>
-          <span class="when">2023.4 – 2025.3</span>
-          <div class="what">東京都立大学大学院 理学研究科 生命科学専攻　修士課程</div>
-        </li>
-        <li>
-          <span class="when">2025.4 –</span>
-          <div class="what">東京都立大学大学院 理学研究科 生命科学専攻　博士課程</div>
+        <li><span class="when">2019.4 – 2023.3</span><div class="what">東京都立大学 理学部 生命科学</div></li>
+        <li><span class="when">2023.4 – 2025.3</span><div class="what">東京都立大学大学院 理学研究科 生命科学専攻　修士課程</div></li>
+        <li><span class="when">2025.4 –</span><div class="what">東京都立大学大学院 理学研究科 生命科学専攻　博士課程</div></li>
+      </ol>
+    </section>
+
+    <!-- ── 03 Publications ── -->
+    <section aria-labelledby="pubs">
+      <div class="sec-head"><span class="idx">03</span><h2 id="pubs">Publications</h2><span class="line"></span></div>
+      <ol class="pubs">
+        <li class="pub">
+          <span class="authors">Tachiki, Y., &amp; Umeda, E. (2026).</span>
+          <a class="title" href="https://doi.org/10.1111/1442-1984.70039">Asymmetric competitions between seedling and clonal ramet promote the evolution of extraordinary long flowering time in monocarpic perennial plants.</a>
+          <span class="venue"><i>Plant Species Biology</i>, 41(1), e70039.</span>
         </li>
       </ol>
     </section>
 
-    <!-- ── 03 Works ── -->
+    <!-- ── 04 Works ── -->
     <section aria-labelledby="works">
-      <div class="sec-head">
-        <span class="idx">03</span>
-        <h2 id="works">Works</h2>
-        <span class="line"></span>
-      </div>
+      <div class="sec-head"><span class="idx">04</span><h2 id="works">Works</h2><span class="line"></span></div>
       <div class="grid">
         <a class="card" href="https://eumeda.github.io/Claude-public/">
           <span class="tag">Interactive Demos</span>
           <h3>研究・教育デモ集</h3>
           <p>非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装をまとめたショーケース。</p>
+          <span class="go">サイトを開く <span class="arrow">→</span></span>
+        </a>
+
+        <a class="card" href="https://mcb.fpark.tmu.ac.jp/">
+          <span class="tag">Web · Lab Site</span>
+          <h3>数理計算生物学研究室</h3>
+          <p>所属する立木（Tachiki）グループの研究室公式サイト。制作に携わりました。</p>
+          <span class="go">サイトを開く <span class="arrow">→</span></span>
+        </a>
+
+        <a class="card" href="https://biol.fpark.tmu.ac.jp/plantecol/">
+          <span class="tag">Web · Lab Site</span>
+          <h3>植物生態学研究室</h3>
+          <p>東京都立大学 植物生態学研究室のサイト。制作に携わりました。</p>
           <span class="go">サイトを開く <span class="arrow">→</span></span>
         </a>
 
@@ -257,13 +248,9 @@
       </div>
     </section>
 
-    <!-- ── 04 Elsewhere ── -->
+    <!-- ── 05 Elsewhere ── -->
     <section aria-labelledby="elsewhere">
-      <div class="sec-head">
-        <span class="idx">04</span>
-        <h2 id="elsewhere">Elsewhere</h2>
-        <span class="line"></span>
-      </div>
+      <div class="sec-head"><span class="idx">05</span><h2 id="elsewhere">Elsewhere</h2><span class="line"></span></div>
       <div class="links">
         <a class="link-row" href="https://researchmap.jp/eisaku_umeda">
           <span class="lbl">My ResearchMap</span><span class="meta">研究業績</span>
@@ -273,15 +260,6 @@
         </a>
         <a class="link-row" href="https://github.com/eUmeda">
           <span class="lbl">GitHub / @eUmeda</span><span class="meta">コード</span>
-        </a>
-        <a class="link-row" href="inui.html">
-          <span class="lbl">犬井作 / Tsukuru Inui</span><span class="meta">同人・小説</span>
-        </a>
-        <a class="link-row" href="https://mcb.fpark.tmu.ac.jp/">
-          <span class="lbl">数理計算生物学研究室</span><span class="meta">Web 制作協力</span>
-        </a>
-        <a class="link-row" href="https://biol.fpark.tmu.ac.jp/plantecol/">
-          <span class="lbl">植物生態学研究室</span><span class="meta">Web 制作協力</span>
         </a>
       </div>
     </section>
