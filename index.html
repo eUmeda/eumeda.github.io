@@ -39,7 +39,7 @@
       radial-gradient(1100px 620px at 50% -8%, #2a2016 0%, rgba(42,32,22,0) 60%),
       radial-gradient(900px 500px at 88% 12%, #2a1c10 0%, rgba(42,28,16,0) 55%),
       var(--bg);
-    line-height: 1.7;
+    line-height: 1.85;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -47,8 +47,8 @@
 
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
   a { color: var(--ember-2); }
-  /* 日本語の折り返し: 語中で切らず、<wbr> を入れた文節境界だけで折り返す (Safari 対応) */
-  .bio p, .bio .note, .card p { word-break: keep-all; line-break: strict; overflow-wrap: anywhere; }
+  /* 日本語は普通に流し込み (禁則だけ整える。語中の折り返しは強制しない) */
+  .bio p, .career .what, .card p { line-break: strict; }
 
   /* ── Hero ── */
   header.hero { padding: 6.5rem 0 2.6rem; }
@@ -68,15 +68,7 @@
     font-size: clamp(1rem, 2.4vw, 1.35rem); letter-spacing: 0.06em;
     color: var(--text-3); margin-top: 0.9rem; -webkit-text-fill-color: var(--text-3);
   }
-  .cc-badge {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    margin-top: 1.7rem; padding: 0.4rem 0.85rem;
-    border: 1px solid var(--border-2); border-radius: 999px;
-    background: var(--surface-2); color: var(--text-2);
-    font-size: 0.76rem; letter-spacing: 0.04em; font-weight: 500;
-  }
-  .cc-badge .dot { color: var(--ember); }
-  .rule { height: 1px; border: 0; margin: 2.4rem 0 0;
+  .rule { height: 1px; border: 0; margin: 2.6rem 0 0;
     background: linear-gradient(90deg, var(--copper) 0%, var(--border) 38%, transparent 100%); }
 
   /* ── Section head ── */
@@ -86,14 +78,24 @@
   .sec-head .line { flex: 1; height: 1px; background: var(--border); }
 
   /* ── Bio ── */
-  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 50ch; margin-bottom: 1.05rem; }
+  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 42em; margin-bottom: 1.1rem; }
   .bio p:last-child { margin-bottom: 0; }
-  .bio strong { color: var(--text); font-weight: 500; }
   .bio a { font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--copper-dim); padding-bottom: 1px; }
   .bio a:hover { color: var(--ember-2); border-color: var(--copper); }
   .penname { color: var(--ember-2); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--copper); }
   .penname:hover { color: #ffb870; }
-  .bio .note { font-size: 0.86rem; color: var(--text-3); border-left: 2px solid var(--copper-dim); padding-left: 0.85rem; max-width: 48ch; }
+  .bio .links-line { font-size: 0.92rem; color: var(--text-3); }
+
+  /* ── Career ── */
+  .career { list-style: none; }
+  .career li {
+    display: grid; grid-template-columns: 9.5rem 1fr; gap: 0.3rem 1.4rem;
+    padding: 0.95rem 0; border-bottom: 1px solid var(--border); align-items: baseline;
+  }
+  .career li:last-child { border-bottom: 0; }
+  .career .when { color: var(--copper); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .career .what { color: var(--text); }
+  .career .sub { display: block; color: var(--text-3); font-size: 0.88rem; margin-top: 0.4rem; max-width: 44em; }
 
   /* ── Primary cards ── */
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
@@ -147,6 +149,7 @@
   @media (max-width: 720px) {
     header.hero { padding: 4.2rem 0 2rem; }
     .grid, .links { grid-template-columns: 1fr; }
+    .career li { grid-template-columns: 1fr; gap: 0.2rem; }
     footer { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -157,7 +160,6 @@
   <header class="hero">
     <p class="kicker">Ecology · Mathematical Biology</p>
     <h1 class="name">Eisaku&nbsp;Umeda<span class="jp">梅田 栄作</span></h1>
-    <span class="cc-badge"><span class="dot">⚒</span> このサイトは Claude Code で生成・更新しています</span>
     <hr class="rule">
   </header>
 
@@ -172,28 +174,55 @@
       </div>
       <div class="bio">
         <p>
-          <strong>梅田栄作（Eisaku&nbsp;Umeda）</strong>は、<wbr>東京都立大学 理学研究科 博士課程に<wbr>在籍する研究者です。<wbr>専門は<wbr><strong>数理生物学・進化生態学・植物生態学</strong>。
+          梅田栄作（Eisaku Umeda）は、東京都立大学 理学研究科 博士課程に在籍する研究者です。専門は数理生物学・進化生態学・植物生態学。
         </p>
         <p>
-          主たる活動として、<wbr><strong>個体群ベースシミュレーション</strong>を用いて、<wbr><strong>ササタケ類（竹・笹）の適応動態</strong>（個体群動態と進化の相互作用）を<wbr>研究しています。<wbr>日本生態学会・<wbr>個体群生態学会・<wbr>数理生物学会に所属。<wbr>所属研究室の Web サイト制作にも<wbr>携わっています。
+          主たる活動として、個体群ベースシミュレーションを用いて、ササタケ類の個体群動態と進化の相互作用を研究しています。日本生態学会・個体群生態学会・数理生物学会に所属。所属研究室の Web サイト制作にも携わっています。
         </p>
         <p>
-          また、<wbr><a class="penname" href="inui.html">犬井作（Tsukuru&nbsp;Inui）</a>名義で<wbr>小説を執筆しており、<wbr>今後はこの名義で<wbr>同人・小説活動を<wbr>展開していきます。<wbr>原点は<wbr><strong>福岡県立福岡高校 文芸部</strong>。
+          また、<a class="penname" href="inui.html">犬井作（Tsukuru Inui）</a>名義で小説を執筆・公開しています。
         </p>
-        <p class="note">
-          ※ 在学中、<wbr>休止していた文芸部を、<wbr>周囲に迷惑をかけながらも、<wbr>多くの助けを得て<wbr>復活させました。
-        </p>
-        <p style="font-size:0.92rem;color:var(--text-3);">
+        <p class="links-line">
           リンク: <a href="https://x.com/EIUmeda">X / @EIUmeda（本名）</a> ·
           <a href="https://researchmap.jp/eisaku_umeda">researchmap</a>
         </p>
       </div>
     </section>
 
-    <!-- ── 02 Works ── -->
-    <section aria-labelledby="works">
+    <!-- ── 02 経歴 ── -->
+    <section aria-labelledby="career">
       <div class="sec-head">
         <span class="idx">02</span>
+        <h2 id="career">経歴</h2>
+        <span class="line"></span>
+      </div>
+      <ol class="career">
+        <li>
+          <span class="when">高校</span>
+          <div class="what">
+            福岡県立福岡高校　図書委員会／文芸部 出身
+            <span class="sub">在学中、休止していた文芸部を、周囲に迷惑をかけながらも、多くの助けを得て復活させました。</span>
+          </div>
+        </li>
+        <li>
+          <span class="when">2019.4 – 2023.3</span>
+          <div class="what">東京都立大学 理学部 生命科学</div>
+        </li>
+        <li>
+          <span class="when">2023.4 – 2025.3</span>
+          <div class="what">東京都立大学大学院 理学研究科 生命科学専攻　修士課程</div>
+        </li>
+        <li>
+          <span class="when">2025.4 –</span>
+          <div class="what">東京都立大学大学院 理学研究科 生命科学専攻　博士課程</div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ── 03 Works ── -->
+    <section aria-labelledby="works">
+      <div class="sec-head">
+        <span class="idx">03</span>
         <h2 id="works">Works</h2>
         <span class="line"></span>
       </div>
@@ -201,37 +230,37 @@
         <a class="card" href="https://eumeda.github.io/Claude-public/">
           <span class="tag">Interactive Demos</span>
           <h3>研究・教育デモ集</h3>
-          <p>非線形力学系（Strogatz）の<wbr>分岐・カオス、<wbr>数理生物モデル、<wbr>データ可視化の<wbr>インタラクティブ実装を<wbr>まとめたショーケース。</p>
+          <p>非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装をまとめたショーケース。</p>
           <span class="go">サイトを開く <span class="arrow">→</span></span>
         </a>
 
         <a class="card" href="https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/">
           <span class="tag">Genealogy</span>
           <h3>サラブレッド系統年表</h3>
-          <p>Darley Arabian から Equinox まで、<wbr>父系（sire-line）の<wbr>流れを辿る<wbr>年表型ビジュアライゼーション。</p>
+          <p>Darley Arabian から Equinox まで、父系（sire-line）の流れを辿る年表型ビジュアライゼーション。</p>
           <span class="go">サイトを開く <span class="arrow">→</span></span>
         </a>
 
         <a class="card" href="https://github.com/eUmeda/Claude-papercards">
           <span class="tag">Pipeline · Open Source</span>
           <h3>論文カード生成</h3>
-          <p>論文 PDF から A5 要約カードと<wbr>対訳 IMRAD PDF を生成する<wbr>パイプライン。<wbr>docling + LLM ベース。</p>
+          <p>論文 PDF から A5 要約カードと対訳 IMRAD PDF を生成するパイプライン。docling + LLM ベース。</p>
           <span class="go">リポジトリを見る <span class="arrow">→</span></span>
         </a>
 
         <a class="card wip" href="inui.html">
           <span class="tag">犬井作 · Tsukuru Inui</span>
           <h3>同人・小説活動</h3>
-          <p>犬井作（つくる いぬい）名義の<wbr>同人活動・小説執筆を<wbr>まとめるページ。<wbr>これまでの作品と<wbr>今後の活動を集約予定。</p>
+          <p>犬井作（つくる いぬい）名義の同人活動・小説執筆をまとめるページ。これまでの作品と今後の活動を集約予定。</p>
           <span class="go">ページを開く <span class="arrow">→</span></span>
         </a>
       </div>
     </section>
 
-    <!-- ── 03 Elsewhere ── -->
+    <!-- ── 04 Elsewhere ── -->
     <section aria-labelledby="elsewhere">
       <div class="sec-head">
-        <span class="idx">03</span>
+        <span class="idx">04</span>
         <h2 id="elsewhere">Elsewhere</h2>
         <span class="line"></span>
       </div>
