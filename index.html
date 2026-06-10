@@ -39,7 +39,7 @@
       radial-gradient(1100px 620px at 50% -8%, #2a2016 0%, rgba(42,32,22,0) 60%),
       radial-gradient(900px 500px at 88% 12%, #2a1c10 0%, rgba(42,28,16,0) 55%),
       var(--bg);
-    line-height: 1.65;
+    line-height: 1.7;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -47,6 +47,8 @@
 
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
   a { color: var(--ember-2); }
+  /* 日本語の折り返し: 語中で切らず、<wbr> を入れた文節境界だけで折り返す (Safari 対応) */
+  .bio p, .bio .note, .card p { word-break: keep-all; line-break: strict; overflow-wrap: anywhere; }
 
   /* ── Hero ── */
   header.hero { padding: 6.5rem 0 2.6rem; }
@@ -84,14 +86,14 @@
   .sec-head .line { flex: 1; height: 1px; background: var(--border); }
 
   /* ── Bio ── */
-  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 64ch; margin-bottom: 1.05rem; }
+  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 50ch; margin-bottom: 1.05rem; }
   .bio p:last-child { margin-bottom: 0; }
   .bio strong { color: var(--text); font-weight: 500; }
   .bio a { font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--copper-dim); padding-bottom: 1px; }
   .bio a:hover { color: var(--ember-2); border-color: var(--copper); }
   .penname { color: var(--ember-2); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--copper); }
   .penname:hover { color: #ffb870; }
-  .bio .note { font-size: 0.86rem; color: var(--text-3); border-left: 2px solid var(--copper-dim); padding-left: 0.85rem; max-width: 60ch; }
+  .bio .note { font-size: 0.86rem; color: var(--text-3); border-left: 2px solid var(--copper-dim); padding-left: 0.85rem; max-width: 48ch; }
 
   /* ── Primary cards ── */
   .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
@@ -170,20 +172,16 @@
       </div>
       <div class="bio">
         <p>
-          <strong>梅田栄作（Eisaku Umeda）</strong>は、<strong>東京都立大学 理学研究科 博士課程</strong>に在籍する研究者です。
-          専門は<strong>数理生物学・進化生態学・植物生態学</strong>。
+          <strong>梅田栄作（Eisaku&nbsp;Umeda）</strong>は、<wbr>東京都立大学 理学研究科 博士課程に<wbr>在籍する研究者です。<wbr>専門は<wbr><strong>数理生物学・進化生態学・植物生態学</strong>。
         </p>
         <p>
-          主たる活動として、<strong>個体群ベースシミュレーション</strong>を用いて<strong>ササタケ類（竹・笹）の適応動態</strong>
-          — 個体群動態と進化の相互作用 — を研究しています。日本生態学会・個体群生態学会・数理生物学会に所属。
-          所属研究室の Web サイト制作にも携わっています。
+          主たる活動として、<wbr><strong>個体群ベースシミュレーション</strong>を用いて、<wbr><strong>ササタケ類（竹・笹）の適応動態</strong>（個体群動態と進化の相互作用）を<wbr>研究しています。<wbr>日本生態学会・<wbr>個体群生態学会・<wbr>数理生物学会に所属。<wbr>所属研究室の Web サイト制作にも<wbr>携わっています。
         </p>
         <p>
-          また、<a class="penname" href="inui.html">犬井作（Tsukuru Inui）</a>名義で小説を執筆しており、
-          今後はこの名義で同人・小説活動を展開していきます。原点は<strong>福岡県立福岡高校 文芸部</strong>。
+          また、<wbr><a class="penname" href="inui.html">犬井作（Tsukuru&nbsp;Inui）</a>名義で<wbr>小説を執筆しており、<wbr>今後はこの名義で<wbr>同人・小説活動を<wbr>展開していきます。<wbr>原点は<wbr><strong>福岡県立福岡高校 文芸部</strong>。
         </p>
         <p class="note">
-          ※ 在学中、休止していた文芸部を、周囲に迷惑をかけながらも、多くの助けを得て復活させました。
+          ※ 在学中、<wbr>休止していた文芸部を、<wbr>周囲に迷惑をかけながらも、<wbr>多くの助けを得て<wbr>復活させました。
         </p>
         <p style="font-size:0.92rem;color:var(--text-3);">
           リンク: <a href="https://x.com/EIUmeda">X / @EIUmeda（本名）</a> ·
@@ -203,28 +201,28 @@
         <a class="card" href="https://eumeda.github.io/Claude-public/">
           <span class="tag">Interactive Demos</span>
           <h3>研究・教育デモ集</h3>
-          <p>非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装をまとめたショーケース。</p>
+          <p>非線形力学系（Strogatz）の<wbr>分岐・カオス、<wbr>数理生物モデル、<wbr>データ可視化の<wbr>インタラクティブ実装を<wbr>まとめたショーケース。</p>
           <span class="go">サイトを開く <span class="arrow">→</span></span>
         </a>
 
         <a class="card" href="https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/">
           <span class="tag">Genealogy</span>
           <h3>サラブレッド系統年表</h3>
-          <p>Darley Arabian から Equinox まで、父系（sire-line）の流れを辿る年表型ビジュアライゼーション。</p>
+          <p>Darley Arabian から Equinox まで、<wbr>父系（sire-line）の<wbr>流れを辿る<wbr>年表型ビジュアライゼーション。</p>
           <span class="go">サイトを開く <span class="arrow">→</span></span>
         </a>
 
         <a class="card" href="https://github.com/eUmeda/Claude-papercards">
           <span class="tag">Pipeline · Open Source</span>
           <h3>論文カード生成</h3>
-          <p>論文 PDF から A5 要約カードと対訳 IMRAD PDF を生成するパイプライン。docling + LLM ベース。</p>
+          <p>論文 PDF から A5 要約カードと<wbr>対訳 IMRAD PDF を生成する<wbr>パイプライン。<wbr>docling + LLM ベース。</p>
           <span class="go">リポジトリを見る <span class="arrow">→</span></span>
         </a>
 
         <a class="card wip" href="inui.html">
           <span class="tag">犬井作 · Tsukuru Inui</span>
           <h3>同人・小説活動</h3>
-          <p>犬井作（つくる いぬい）名義の同人活動・小説執筆をまとめるページ。これまでの作品と今後の活動を集約予定。</p>
+          <p>犬井作（つくる いぬい）名義の<wbr>同人活動・小説執筆を<wbr>まとめるページ。<wbr>これまでの作品と<wbr>今後の活動を集約予定。</p>
           <span class="go">ページを開く <span class="arrow">→</span></span>
         </a>
       </div>
