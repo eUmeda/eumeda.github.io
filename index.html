@@ -25,7 +25,6 @@
     --ember-2:   #f2a45a;
     --copper:    #c8742e;
     --copper-dim:#9c5a24;
-    --glow:      rgba(224,133,58,0.22);
     --serif: "DM Serif Display", "Hiragino Mincho ProN", "Yu Mincho", serif;
     --sans: "DM Sans", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
@@ -47,7 +46,7 @@
 
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.5rem; }
   a { color: var(--ember-2); }
-  .bio p, .career .what, .card p, .pub { line-break: strict; }
+  .bio p, .career .what, .work-list .d, .pub { line-break: strict; }
 
   /* ── Hero ── */
   header.hero { padding: 6.5rem 0 2.6rem; }
@@ -61,7 +60,7 @@
   h1.name .jp { display: block; font-family: var(--sans); font-weight: 500; font-size: clamp(1rem, 2.4vw, 1.35rem); letter-spacing: 0.06em; color: var(--text-3); margin-top: 0.9rem; -webkit-text-fill-color: var(--text-3); }
 
   /* SNS buttons */
-  .social { display: flex; gap: 0.6rem; margin-top: 1.7rem; }
+  .social { display: flex; gap: 0.6rem; margin-top: 1.7rem; align-items: center; }
   .sbtn {
     width: 42px; height: 42px; border-radius: 50%;
     border: 1px solid var(--border-2); background: var(--surface-2);
@@ -83,7 +82,7 @@
   .sec-head .line { flex: 1; height: 1px; background: var(--border); }
 
   /* ── Bio ── */
-  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 42em; margin-bottom: 1.1rem; }
+  .bio p { color: var(--text-2); font-size: 1.04rem; max-width: 46em; margin-bottom: 1.1rem; }
   .bio p:last-child { margin-bottom: 0; }
   .penname { color: var(--ember-2); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--copper); }
   .penname:hover { color: #ffb870; }
@@ -98,7 +97,7 @@
   /* ── Works portfolio: subsections ── */
   .work-sub { margin-top: 2.6rem; }
   .work-sub:first-child { margin-top: 0; }
-  .sub-h { font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 1.05rem; display: flex; align-items: center; gap: 0.7rem; }
+  .sub-h { font-size: 0.78rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.7rem; }
   .sub-h::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
   /* Publications */
@@ -112,34 +111,21 @@
   .pub .venue { color: var(--text-3); font-size: 0.9rem; }
   .pub .venue i { font-style: italic; color: var(--text-2); }
 
-  /* Cards */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
-  .card {
-    display: flex; flex-direction: column;
-    background: linear-gradient(160deg, var(--surface) 0%, var(--bg-2) 100%);
-    border: 1px solid var(--border); border-radius: 14px;
-    padding: 1.7rem 1.7rem 1.5rem; text-decoration: none; color: inherit;
-    position: relative; overflow: hidden;
-    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  /* Work rows (Products / 創作活動 — 統一の行形式) */
+  .work-list { list-style: none; }
+  .work-list li { border-bottom: 1px solid var(--border); }
+  .work-list a {
+    display: grid; grid-template-columns: 14em 1fr auto; gap: 0.25rem 1.4rem;
+    align-items: baseline; padding: 1rem 0.3rem; text-decoration: none; color: var(--text);
+    transition: color .2s, padding-left .2s;
   }
-  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(420px 180px at 0% 0%, var(--glow), transparent 70%); opacity: 0; transition: opacity .25s ease; pointer-events: none; }
-  .card:hover { transform: translateY(-4px); border-color: var(--border-2); box-shadow: 0 14px 34px rgba(0,0,0,0.5), 0 0 0 1px var(--copper-dim) inset; }
-  .card:hover::before { opacity: 1; }
-  .card:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
-  .card .tag { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 0.85rem; }
-  .card h3 { font-size: 1.18rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; letter-spacing: 0.01em; }
-  .card p { color: var(--text-2); font-size: 0.92rem; flex: 1; }
-  .card .go { margin-top: 1.15rem; font-size: 0.84rem; font-weight: 500; color: var(--ember-2); display: inline-flex; align-items: center; gap: 0.4rem; }
-  .card .go .arrow { transition: transform .2s ease; }
-  .card:hover .go .arrow { transform: translateX(4px); }
-  .card.wip h3::after { content: "工事中"; font-family: var(--sans); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; vertical-align: middle; margin-left: 0.6rem; padding: 0.12rem 0.45rem; border: 1px solid var(--copper-dim); border-radius: 999px; color: var(--copper); }
-
-  /* Lab sites (list) */
-  .lab-list { list-style: none; margin-top: 1.1rem; }
-  .lab-list li { display: flex; align-items: baseline; gap: 0.8rem; padding: 0.7rem 0.3rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-  .lab-list a { color: var(--text); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--copper-dim); padding-bottom: 1px; }
-  .lab-list a:hover { color: var(--ember-2); border-color: var(--copper); }
-  .lab-list .d { color: var(--text-3); font-size: 0.86rem; }
+  .work-list a:hover { color: var(--ember-2); padding-left: 0.6rem; }
+  .work-list .t { font-weight: 600; }
+  .work-list .d { color: var(--text-3); font-size: 0.9rem; }
+  .work-list a:hover .d { color: var(--text-2); }
+  .work-list .arrow { color: var(--copper); transition: transform .2s ease; }
+  .work-list a:hover .arrow { transform: translateX(4px); }
+  .wip-badge { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; vertical-align: middle; margin-left: 0.5rem; padding: 0.12rem 0.45rem; border: 1px solid var(--copper-dim); border-radius: 999px; color: var(--copper); }
 
   /* ── Footer ── */
   footer { margin-top: 4.2rem; padding: 2.2rem 0 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem; color: var(--text-3); font-size: 0.85rem; }
@@ -149,8 +135,9 @@
 
   @media (max-width: 720px) {
     header.hero { padding: 4.2rem 0 2rem; }
-    .grid { grid-template-columns: 1fr; }
     .career li { grid-template-columns: 1fr; gap: 0.2rem; }
+    .work-list a { grid-template-columns: 1fr auto; gap: 0.15rem 1rem; }
+    .work-list .d { grid-column: 1 / -1; }
     footer { flex-direction: column; align-items: flex-start; }
   }
 </style>
@@ -179,8 +166,10 @@
     <section aria-labelledby="who">
       <div class="sec-head"><span class="idx">01</span><h2 id="who">Who am I?</h2><span class="line"></span></div>
       <div class="bio">
-        <p>梅田栄作（Eisaku Umeda）は、東京都立大学 理学研究科 博士課程に在籍する研究者です。専門は数理生物学・進化生態学・植物生態学。</p>
-        <p>主たる活動として、個体群ベースシミュレーションを用いて、ササタケ類の個体群動態と進化の相互作用を研究しています。日本生態学会・個体群生態学会・数理生物学会に所属。</p>
+        <p>梅田栄作（Eisaku Umeda）は、東京都立大学 理学研究科 博士課程に在籍する研究者です。<br>
+        専門は数理生物学・進化生態学・植物生態学。<br>
+        主たる活動として、個体群ベースシミュレーションを用いて、ササタケ類の個体群動態と進化の相互作用を研究しています。<br>
+        日本生態学会・個体群生態学会・数理生物学会に所属。</p>
         <p>また、<a class="penname" href="inui.html">犬井作（Tsukuru Inui）</a>名義で創作活動をしています。</p>
       </div>
     </section>
@@ -215,43 +204,45 @@
       <!-- Products -->
       <div class="work-sub">
         <h4 class="sub-h">Products</h4>
-        <div class="grid">
-          <a class="card" href="https://eumeda.github.io/Claude-public/">
-            <span class="tag">Interactive Demos</span>
-            <h3>研究・教育デモ集</h3>
-            <p>非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装をまとめたショーケース。</p>
-            <span class="go">サイトを開く <span class="arrow">→</span></span>
-          </a>
-          <a class="card" href="https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/">
-            <span class="tag">Genealogy</span>
-            <h3>サラブレッド系統年表</h3>
-            <p>Darley Arabian から Equinox まで、父系（sire-line）の流れを辿る年表型ビジュアライゼーション。</p>
-            <span class="go">サイトを開く <span class="arrow">→</span></span>
-          </a>
-          <a class="card" href="https://github.com/eUmeda/Claude-papercards">
-            <span class="tag">Pipeline · Open Source</span>
-            <h3>論文カード生成</h3>
-            <p>論文 PDF から A5 要約カードと対訳 IMRAD PDF を生成するパイプライン。docling + LLM ベース。</p>
-            <span class="go">リポジトリを見る <span class="arrow">→</span></span>
-          </a>
-        </div>
-        <ul class="lab-list" aria-label="制作に携わった研究室サイト">
-          <li><a href="https://mcb.fpark.tmu.ac.jp/">数理計算生物学研究室</a><span class="d">立木（Tachiki）グループ公式サイト — Web 制作協力</span></li>
-          <li><a href="https://biol.fpark.tmu.ac.jp/plantecol/">植物生態学研究室</a><span class="d">東京都立大学 — Web 制作協力</span></li>
+        <ul class="work-list">
+          <li><a href="https://eumeda.github.io/Claude-public/">
+            <span class="t">研究・教育デモ集</span>
+            <span class="d">非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装集。</span>
+            <span class="arrow">→</span>
+          </a></li>
+          <li><a href="https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/">
+            <span class="t">サラブレッド系統年表</span>
+            <span class="d">Darley Arabian から Equinox までの父系（sire-line）の流れを辿る年表型ビジュアライゼーション。</span>
+            <span class="arrow">→</span>
+          </a></li>
+          <li><a href="https://github.com/eUmeda/Claude-papercards">
+            <span class="t">論文カード生成</span>
+            <span class="d">論文 PDF から A5 要約カード＋対訳 IMRAD PDF を生成するパイプライン（docling + LLM）。</span>
+            <span class="arrow">→</span>
+          </a></li>
+          <li><a href="https://mcb.fpark.tmu.ac.jp/">
+            <span class="t">数理計算生物学研究室</span>
+            <span class="d">立木（Tachiki）グループ公式サイト — Web 制作協力。</span>
+            <span class="arrow">→</span>
+          </a></li>
+          <li><a href="https://biol.fpark.tmu.ac.jp/plantecol/">
+            <span class="t">植物生態学研究室</span>
+            <span class="d">東京都立大学 — Web 制作協力。</span>
+            <span class="arrow">→</span>
+          </a></li>
         </ul>
       </div>
 
       <!-- 創作活動 -->
       <div class="work-sub">
         <h4 class="sub-h">創作活動</h4>
-        <div class="grid">
-          <a class="card wip" href="inui.html">
-            <span class="tag">犬井作 · Tsukuru Inui</span>
-            <h3>創作活動</h3>
-            <p>犬井作名義の創作活動をまとめるページ。これまでの作品と今後の活動を集約予定。</p>
-            <span class="go">ページを開く <span class="arrow">→</span></span>
-          </a>
-        </div>
+        <ul class="work-list">
+          <li><a href="inui.html">
+            <span class="t">犬井作 / Tsukuru Inui<span class="wip-badge">工事中</span></span>
+            <span class="d">犬井作名義の創作活動をまとめるページ。これまでの作品と今後の活動を集約予定。</span>
+            <span class="arrow">→</span>
+          </a></li>
+        </ul>
       </div>
 
     </section>
