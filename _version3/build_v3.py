@@ -16,7 +16,7 @@ NAV = [
 ]
 
 FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
-           "<rect width='64' height='64' rx='12' fill='%230d4c92'/>"
+           "<rect width='64' height='64' rx='12' fill='%232D5016'/>"
            "<text x='32' y='45' font-family='Georgia,serif' font-size='40' fill='%23ffffff' text-anchor='middle'>E</text></svg>")
 
 SOCIAL_X = ('<a href="https://x.com/EIUmeda" aria-label="X" title="X / @EIUmeda">'
@@ -41,21 +41,21 @@ PORTRAIT_SVG = """<svg viewBox="0 0 200 240" role="img" aria-label="位相図（
     <line x1="46" y1="180" x2="58" y2="174"/><line x1="140" y1="180" x2="152" y2="170"/>
     <line x1="70" y1="40" x2="84" y2="44"/><line x1="116" y1="196" x2="130" y2="200"/>
   </g>
-  <path d="M178 36 C 120 6, 36 30, 30 96 C 26 156, 96 196, 150 176 C 188 162, 188 118, 150 108 C 118 100, 86 120, 92 146 C 96 166, 124 168, 132 150" fill="none" stroke="#0d4c92" stroke-width="2.1"/>
+  <path d="M178 36 C 120 6, 36 30, 30 96 C 26 156, 96 196, 150 176 C 188 162, 188 118, 150 108 C 118 100, 86 120, 92 146 C 96 166, 124 168, 132 150" fill="none" stroke="#2D5016" stroke-width="2.1"/>
   <path d="M26 196 C 70 214, 150 206, 174 150" fill="none" stroke="#ea7d07" stroke-width="1.7"/>
-  <circle cx="116" cy="138" r="4.4" fill="#0d4c92"/>
+  <circle cx="116" cy="138" r="4.4" fill="#2D5016"/>
   <circle cx="100" cy="120" r="4" fill="#fff" stroke="#333" stroke-width="1.6"/>
-  <path d="M150 176 l -9 -1 l 5 7 z" fill="#0d4c92"/>
+  <path d="M150 176 l -9 -1 l 5 7 z" fill="#2D5016"/>
   <path d="M174 150 l -2 -9 l -7 6 z" fill="#ea7d07"/>
 </svg>"""
 
 # Works のサムネ (5 種, 各々モチーフ違い)
 THUMBS = {
- "demos": '<svg viewBox="0 0 120 78"><line x1="10" y1="68" x2="110" y2="68" stroke="#cfcfcf"/><line x1="10" y1="10" x2="10" y2="68" stroke="#cfcfcf"/><path d="M12 66 C 40 64, 52 18, 70 18 C 88 18, 100 60, 112 40" fill="none" stroke="#0d4c92" stroke-width="2"/><circle cx="70" cy="18" r="3" fill="#ea7d07"/></svg>',
- "sire":  '<svg viewBox="0 0 120 78"><line x1="20" y1="39" x2="48" y2="39" stroke="#0d4c92" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="22" stroke="#0d4c92" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="56" stroke="#0d4c92" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="14" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="30" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="48" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="64" stroke="#cfcfcf" stroke-width="2"/><circle cx="20" cy="39" r="3.4" fill="#ea7d07"/></svg>',
- "cards": '<svg viewBox="0 0 120 78"><rect x="30" y="20" width="44" height="40" fill="#fff" stroke="#cfcfcf"/><rect x="40" y="16" width="44" height="40" fill="#fff" stroke="#0d4c92"/><line x1="46" y1="26" x2="78" y2="26" stroke="#ea7d07" stroke-width="2"/><line x1="46" y1="34" x2="78" y2="34" stroke="#cfcfcf"/><line x1="46" y1="40" x2="72" y2="40" stroke="#cfcfcf"/></svg>',
- "mcb":   '<svg viewBox="0 0 120 78"><line x1="60" y1="39" x2="30" y2="20" stroke="#cfcfcf"/><line x1="60" y1="39" x2="92" y2="24" stroke="#cfcfcf"/><line x1="60" y1="39" x2="34" y2="58" stroke="#cfcfcf"/><line x1="60" y1="39" x2="88" y2="58" stroke="#cfcfcf"/><circle cx="60" cy="39" r="5" fill="#0d4c92"/><circle cx="30" cy="20" r="3.4" fill="#ea7d07"/><circle cx="92" cy="24" r="3.4" fill="#0d4c92"/><circle cx="34" cy="58" r="3.4" fill="#0d4c92"/><circle cx="88" cy="58" r="3.4" fill="#0d4c92"/></svg>',
- "leaf":  '<svg viewBox="0 0 120 78"><path d="M60 12 C 38 30, 38 50, 60 66 C 82 50, 82 30, 60 12 Z" fill="none" stroke="#0d4c92" stroke-width="2"/><path d="M60 12 C 60 30, 60 50, 60 66" stroke="#cfcfcf"/><path d="M60 30 L 49 26 M60 38 L 71 34 M60 46 L 49 42" stroke="#cfcfcf"/><circle cx="60" cy="39" r="3" fill="#ea7d07"/></svg>',
+ "demos": '<svg viewBox="0 0 120 78"><line x1="10" y1="68" x2="110" y2="68" stroke="#cfcfcf"/><line x1="10" y1="10" x2="10" y2="68" stroke="#cfcfcf"/><path d="M12 66 C 40 64, 52 18, 70 18 C 88 18, 100 60, 112 40" fill="none" stroke="#2D5016" stroke-width="2"/><circle cx="70" cy="18" r="3" fill="#9a7b3f"/></svg>',
+ "sire":  '<svg viewBox="0 0 120 78"><line x1="20" y1="39" x2="48" y2="39" stroke="#2D5016" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="22" stroke="#2D5016" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="56" stroke="#2D5016" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="14" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="30" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="48" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="64" stroke="#cfcfcf" stroke-width="2"/><circle cx="20" cy="39" r="3.4" fill="#9a7b3f"/></svg>',
+ "cards": '<svg viewBox="0 0 120 78"><rect x="30" y="20" width="44" height="40" fill="#fff" stroke="#cfcfcf"/><rect x="40" y="16" width="44" height="40" fill="#fff" stroke="#2D5016"/><line x1="46" y1="26" x2="78" y2="26" stroke="#9a7b3f" stroke-width="2"/><line x1="46" y1="34" x2="78" y2="34" stroke="#cfcfcf"/><line x1="46" y1="40" x2="72" y2="40" stroke="#cfcfcf"/></svg>',
+ "mcb":   '<svg viewBox="0 0 120 78"><line x1="60" y1="39" x2="30" y2="20" stroke="#cfcfcf"/><line x1="60" y1="39" x2="92" y2="24" stroke="#cfcfcf"/><line x1="60" y1="39" x2="34" y2="58" stroke="#cfcfcf"/><line x1="60" y1="39" x2="88" y2="58" stroke="#cfcfcf"/><circle cx="60" cy="39" r="5" fill="#2D5016"/><circle cx="30" cy="20" r="3.4" fill="#9a7b3f"/><circle cx="92" cy="24" r="3.4" fill="#2D5016"/><circle cx="34" cy="58" r="3.4" fill="#2D5016"/><circle cx="88" cy="58" r="3.4" fill="#2D5016"/></svg>',
+ "leaf":  '<svg viewBox="0 0 120 78"><path d="M60 12 C 38 30, 38 50, 60 66 C 82 50, 82 30, 60 12 Z" fill="none" stroke="#2D5016" stroke-width="2"/><path d="M60 12 C 60 30, 60 50, 60 66" stroke="#cfcfcf"/><path d="M60 30 L 49 26 M60 38 L 71 34 M60 46 L 49 42" stroke="#cfcfcf"/><circle cx="60" cy="39" r="3" fill="#9a7b3f"/></svg>',
 }
 
 # ── highlights (home) ──
@@ -230,12 +230,12 @@ STROGATZ_URL = "https://www.stevenstrogatz.com/"
 
 # 書影の代替: 本家カバーの複製ではなく、位相図モチーフのオリジナル tribute 図
 COVER_ART = """<svg viewBox="0 0 120 120" role="img" aria-label="位相図モチーフ">
-  <g stroke="#9fd0f5" stroke-width="1.4" fill="none">
+  <g stroke="#a9d49a" stroke-width="1.4" fill="none">
     <path d="M60 18 C 26 22, 16 60, 40 84 C 64 108, 104 92, 100 62 C 97 38, 70 34, 62 54 C 56 70, 76 78, 84 66"/>
   </g>
-  <path d="M30 96 C 60 110, 100 96, 104 64" fill="none" stroke="#f2a45a" stroke-width="1.3"/>
-  <circle cx="73" cy="59" r="3.4" fill="#f2a45a"/>
-  <circle cx="60" cy="54" r="3" fill="#fff" stroke="#0a2c54" stroke-width="1.2"/>
+  <path d="M30 96 C 60 110, 100 96, 104 64" fill="none" stroke="#c8a85c" stroke-width="1.3"/>
+  <circle cx="73" cy="59" r="3.4" fill="#c8a85c"/>
+  <circle cx="60" cy="54" r="3" fill="#fff" stroke="#1b330d" stroke-width="1.2"/>
 </svg>"""
 
 PAGES["homage"] = dict(
