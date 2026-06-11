@@ -29,7 +29,7 @@ SOCIAL_GH = ('<a href="https://github.com/eUmeda" aria-label="GitHub" title="Git
 # ヒーローの本人写真 (Strogatz 本家のポートレート位置)。eisaku.jpg を _version3/ に置く。
 PHOTO_FIG = """<figure class="portrait">
   <img src="eisaku.png" alt="梅田栄作 (Eisaku Umeda) — 東京都立大学 理学研究科" width="440" height="440">
-  <figcaption class="cap">梅田栄作 · Eisaku&nbsp;Umeda</figcaption>
+  <figcaption class="cap">Photo Credit: Ann Umeda</figcaption>
 </figure>"""
 
 PORTRAIT_SVG = """<svg viewBox="0 0 200 240" role="img" aria-label="位相図（減衰振動子の相図）">
@@ -56,24 +56,28 @@ THUMBS = {
  "cards": '<svg viewBox="0 0 120 78"><rect x="30" y="20" width="44" height="40" fill="#fff" stroke="#cfcfcf"/><rect x="40" y="16" width="44" height="40" fill="#fff" stroke="#2D5016"/><line x1="46" y1="26" x2="78" y2="26" stroke="#9a7b3f" stroke-width="2"/><line x1="46" y1="34" x2="78" y2="34" stroke="#cfcfcf"/><line x1="46" y1="40" x2="72" y2="40" stroke="#cfcfcf"/></svg>',
  "mcb":   '<svg viewBox="0 0 120 78"><line x1="60" y1="39" x2="30" y2="20" stroke="#cfcfcf"/><line x1="60" y1="39" x2="92" y2="24" stroke="#cfcfcf"/><line x1="60" y1="39" x2="34" y2="58" stroke="#cfcfcf"/><line x1="60" y1="39" x2="88" y2="58" stroke="#cfcfcf"/><circle cx="60" cy="39" r="5" fill="#2D5016"/><circle cx="30" cy="20" r="3.4" fill="#9a7b3f"/><circle cx="92" cy="24" r="3.4" fill="#2D5016"/><circle cx="34" cy="58" r="3.4" fill="#2D5016"/><circle cx="88" cy="58" r="3.4" fill="#2D5016"/></svg>',
  "leaf":  '<svg viewBox="0 0 120 78"><path d="M60 12 C 38 30, 38 50, 60 66 C 82 50, 82 30, 60 12 Z" fill="none" stroke="#2D5016" stroke-width="2"/><path d="M60 12 C 60 30, 60 50, 60 66" stroke="#cfcfcf"/><path d="M60 30 L 49 26 M60 38 L 71 34 M60 46 L 49 42" stroke="#cfcfcf"/><circle cx="60" cy="39" r="3" fill="#9a7b3f"/></svg>',
+ "pen":   '<svg viewBox="0 0 120 78" role="img" aria-label="ペン"><line x1="46" y1="54" x2="96" y2="16" stroke="#2D5016" stroke-width="3"/><path d="M46 54 L40 66 L52 60 Z" fill="#2D5016"/><circle cx="36" cy="70" r="2.6" fill="#9a7b3f"/><line x1="60" y1="44" x2="66" y2="40" stroke="#9a7b3f" stroke-width="3"/><line x1="22" y1="69" x2="38" y2="69" stroke="#cfcfcf" stroke-width="2"/></svg>',
 }
+
+THUMBS.update({
+ 'px_research': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="research"><rect x="73" y="24" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="24" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="29" width="5" height="5" fill="#2D5016"/><rect x="58" y="29" width="5" height="5" fill="#2D5016"/><rect x="73" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="34" width="5" height="5" fill="#2D5016"/><rect x="58" y="34" width="5" height="5" fill="#2D5016"/><rect x="73" y="34" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="34" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="39" width="5" height="5" fill="#2D5016"/><rect x="38" y="39" width="5" height="5" fill="#2D5016"/><rect x="53" y="39" width="5" height="5" fill="#2D5016"/><rect x="58" y="39" width="5" height="5" fill="#2D5016"/><rect x="73" y="39" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="39" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="44" width="5" height="5" fill="#2D5016"/><rect x="38" y="44" width="5" height="5" fill="#2D5016"/><rect x="53" y="44" width="5" height="5" fill="#2D5016"/><rect x="58" y="44" width="5" height="5" fill="#2D5016"/><rect x="73" y="44" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="44" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="49" width="5" height="5" fill="#2D5016"/><rect x="38" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="49" width="5" height="5" fill="#2D5016"/><rect x="58" y="49" width="5" height="5" fill="#2D5016"/><rect x="73" y="49" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="49" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="54" width="5" height="5" fill="#2D5016"/><rect x="38" y="54" width="5" height="5" fill="#2D5016"/><rect x="43" y="54" width="5" height="5" fill="#2D5016"/><rect x="48" y="54" width="5" height="5" fill="#2D5016"/><rect x="53" y="54" width="5" height="5" fill="#2D5016"/><rect x="58" y="54" width="5" height="5" fill="#2D5016"/><rect x="63" y="54" width="5" height="5" fill="#2D5016"/><rect x="68" y="54" width="5" height="5" fill="#2D5016"/><rect x="73" y="54" width="5" height="5" fill="#2D5016"/><rect x="78" y="54" width="5" height="5" fill="#2D5016"/><rect x="83" y="54" width="5" height="5" fill="#2D5016"/></svg>',
+ 'px_works': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="works"><rect x="33" y="19" width="5" height="5" fill="#2D5016"/><rect x="38" y="19" width="5" height="5" fill="#2D5016"/><rect x="43" y="19" width="5" height="5" fill="#2D5016"/><rect x="48" y="19" width="5" height="5" fill="#2D5016"/><rect x="53" y="19" width="5" height="5" fill="#2D5016"/><rect x="58" y="19" width="5" height="5" fill="#2D5016"/><rect x="63" y="19" width="5" height="5" fill="#2D5016"/><rect x="68" y="19" width="5" height="5" fill="#2D5016"/><rect x="73" y="19" width="5" height="5" fill="#2D5016"/><rect x="78" y="19" width="5" height="5" fill="#2D5016"/><rect x="83" y="19" width="5" height="5" fill="#2D5016"/><rect x="33" y="24" width="5" height="5" fill="#2D5016"/><rect x="83" y="24" width="5" height="5" fill="#2D5016"/><rect x="33" y="29" width="5" height="5" fill="#2D5016"/><rect x="43" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="48" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="58" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="63" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="83" y="29" width="5" height="5" fill="#2D5016"/><rect x="33" y="34" width="5" height="5" fill="#2D5016"/><rect x="83" y="34" width="5" height="5" fill="#2D5016"/><rect x="33" y="39" width="5" height="5" fill="#2D5016"/><rect x="43" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="48" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="53" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="58" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="63" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="68" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="73" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="83" y="39" width="5" height="5" fill="#2D5016"/><rect x="33" y="44" width="5" height="5" fill="#2D5016"/><rect x="43" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="48" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="53" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="63" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="68" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="73" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="83" y="44" width="5" height="5" fill="#2D5016"/><rect x="33" y="49" width="5" height="5" fill="#2D5016"/><rect x="38" y="49" width="5" height="5" fill="#2D5016"/><rect x="43" y="49" width="5" height="5" fill="#2D5016"/><rect x="48" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="49" width="5" height="5" fill="#2D5016"/><rect x="58" y="49" width="5" height="5" fill="#2D5016"/><rect x="63" y="49" width="5" height="5" fill="#2D5016"/><rect x="68" y="49" width="5" height="5" fill="#2D5016"/><rect x="73" y="49" width="5" height="5" fill="#2D5016"/><rect x="78" y="49" width="5" height="5" fill="#2D5016"/><rect x="83" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="54" width="5" height="5" fill="#2D5016"/><rect x="58" y="54" width="5" height="5" fill="#2D5016"/><rect x="63" y="54" width="5" height="5" fill="#2D5016"/><rect x="43" y="59" width="5" height="5" fill="#2D5016"/><rect x="48" y="59" width="5" height="5" fill="#2D5016"/><rect x="53" y="59" width="5" height="5" fill="#2D5016"/><rect x="58" y="59" width="5" height="5" fill="#2D5016"/><rect x="63" y="59" width="5" height="5" fill="#2D5016"/><rect x="68" y="59" width="5" height="5" fill="#2D5016"/><rect x="73" y="59" width="5" height="5" fill="#2D5016"/></svg>',
+ 'px_creative': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="pen"><rect x="76" y="15" width="4" height="4" fill="#2D5016"/><rect x="80" y="15" width="4" height="4" fill="#2D5016"/><rect x="72" y="19" width="4" height="4" fill="#2D5016"/><rect x="76" y="19" width="4" height="4" fill="#2D5016"/><rect x="80" y="19" width="4" height="4" fill="#2D5016"/><rect x="68" y="23" width="4" height="4" fill="#2D5016"/><rect x="72" y="23" width="4" height="4" fill="#2D5016"/><rect x="76" y="23" width="4" height="4" fill="#2D5016"/><rect x="64" y="27" width="4" height="4" fill="#2D5016"/><rect x="68" y="27" width="4" height="4" fill="#2D5016"/><rect x="72" y="27" width="4" height="4" fill="#2D5016"/><rect x="60" y="31" width="4" height="4" fill="#2D5016"/><rect x="64" y="31" width="4" height="4" fill="#2D5016"/><rect x="68" y="31" width="4" height="4" fill="#2D5016"/><rect x="56" y="35" width="4" height="4" fill="#2D5016"/><rect x="60" y="35" width="4" height="4" fill="#2D5016"/><rect x="64" y="35" width="4" height="4" fill="#2D5016"/><rect x="52" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="56" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="52" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="56" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="52" y="47" width="4" height="4" fill="#1b330d"/><rect x="56" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="51" width="4" height="4" fill="#1b330d"/><rect x="52" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="55" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="55" width="4" height="4" fill="#9a7b3f"/><rect x="36" y="59" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="59" width="4" height="4" fill="#9a7b3f"/><rect x="36" y="63" width="4" height="4" fill="#9a7b3f"/></svg>',
+})
 
 # ── highlights (home) ──
 HL = """<div class="highlights">
   <a class="hcard" href="research.html">
-    <div class="thumb">%(demos)s</div>
+    <div class="thumb">%(px_research)s</div>
     <h3>research</h3>
-    <p>数理生物学・進化生態学・植物生態学。個体群ベースシミュレーションで、ササタケ類の個体群動態と進化の相互作用を研究。</p>
   </a>
   <a class="hcard" href="works.html">
-    <div class="thumb">%(cards)s</div>
+    <div class="thumb">%(px_works)s</div>
     <h3>works</h3>
-    <p>研究・教育デモ集、系統年表、論文カード生成、研究室サイト制作。Web とコードでつくる成果物。</p>
   </a>
   <a class="hcard" href="creative.html">
-    <div class="thumb">%(leaf)s</div>
+    <div class="thumb">%(px_creative)s</div>
     <h3>creative</h3>
-    <p>犬井作（Tsukuru Inui）名義の創作活動。これまでの作品と今後の活動を集約予定。</p>
   </a>
 </div>""" % THUMBS
 
@@ -126,7 +130,7 @@ PAGES = {}
 
 PAGES["home"] = dict(
   title="梅田栄作 (Eisaku Umeda) — 数理生物学・進化生態学・植物生態学 | 東京都立大学",
-  desc="梅田栄作 (Eisaku Umeda)。東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。個体群ベースシミュレーションでササタケ類の個体群動態と進化を研究。犬井作 (Tsukuru Inui) 名義で創作活動。",
+  desc="梅田栄作 (Eisaku Umeda)。東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。個体ベースシミュレーションでササタケ類の個体群動態と進化を研究。犬井作 (Tsukuru Inui) 名義で創作活動。",
   ld=True,
   main=f"""
       <div class="home-heading">
@@ -148,11 +152,29 @@ PAGES["home"] = dict(
 
 PAGES["research"] = dict(
   title="Research — 梅田栄作 (Eisaku Umeda) | 数理生物学・進化生態学・植物生態学",
-  desc="梅田栄作の研究。数理生物学・進化生態学・植物生態学。個体群ベースシミュレーションでササタケ類（タケ・ササ）の個体群動態と進化の相互作用を研究。査読論文一覧。",
+  desc="梅田栄作の研究紹介。生活史戦略の進化に関心。最長120年待って一斉開花するササタケ類の開花時間の進化を、個体ベースシミュレーションと一方向的競争の明示化から研究。査読論文 Tachiki and Umeda (2026, Plant Species Biology)。",
   ld=False,
   main="""
       <section class="sec"><h2>Research</h2>
-        <p class="lead">研究紹介は現在準備中です。</p>
+        <h3 class="sub-h">1. 私の研究のはじまりと最初に出版された論文</h3>
+        <div class="rbody">
+          <p>私の興味は「生活史戦略（life history strategy）の進化」にあります。生活史戦略とは、生物が特定の環境で適応度を最大化するために採る、繁殖と生存の行動の組み合わせを指します（Buss &amp; Schmitt, 2019）。たとえば植物がいつ、生涯で何回花を咲かせるか、といった特徴です。サクラは毎年花咲きますが、竹林へ行ってもほとんど花を咲かせていることはありませんよね。このような、生き物がいつ育ち、いつ繁殖するかといった特徴が、大小・種類を問わず、どのように多様になったかに興味があります。</p>
+          <p>きっかけは偶然読んだ指導教官の論文で、ササタケ類が開花まで待つ年数が、地下茎が長いほど長くなることを示した理論研究でした。ササタケ類は「一回繁殖型・多年生」という生活史を示します。種子から発芽した後、何十年もの間、地下に枝を伸ばしてクローン（いわゆる「タケノコ」です）を生産し、やがて一斉に開花・枯死するのです。この発芽から開花までかかる時間は種特異的であり、3年から120年まで幅があり、アジアでは熱帯から温帯に向かって長くなる緯度的勾配が見られます。この緯度的勾配を生み出すのが地下茎構造の違いではないか、というのがこの論文の主張でした。</p>
+          <p>実は、日本や中国、韓国といった東アジアの国々では竹林があるのに、インドネシアやインド、スリランカでは竹林はみられません。熱帯アジアに分布するササタケは、クローンを親のそばに生産・配置します。これは地下茎構造の違いに由来します。温帯型のササタケ類は細く長い地下茎を、熱帯型は太く短い地下茎を種特異的に有するのです。Tachiki et al. 2015 J. Ecol. は、開花周期に見られる緯度的勾配は、地下茎構造の熱帯から温帯にかけた違いと同様の傾向を示しているだけでなく、その地下茎構造の違いが緯度的勾配の創出要因ではないかと示したのです。</p>
+          <p>この論文は私が初めて読んだ数理生物学の研究論文であり、それまでの私の世界にはないものでした。地下茎が長いとクローン間の距離が離れる。そのため開花まで待つ期間に生じるクローン間の競争が緩和される。結果、クローナル成長効率が改善され、より開花が遅延する。高校時代は文芸部に所属しており、伊藤計劃や円城塔のSF小説に憧れて、自分でも思弁的な（つもりの）空想小説を書いていた私にとって、その営みは非常に刺激的でした。数理という道具を使えば、まるでSF小説の登場人物のように、真理を探求できる。そういう手応えが、Tachiki et al. 2015 J. Ecol. からは感じ取れました。本気でこれをやりたい！ そう思いました。</p>
+          <p>当初は先行研究の結果をどうしても再現できず、原因を探るうちに、鍵が一方向的競争にあると分かってきました。光をめぐる競争では、背の高い個体が光を独占し、低い個体を被陰します。優位が一方向にしか働かないこの非対称性は、先行研究では暗黙に仮定されていましたが、私のモデルでは明示的に組み込む必要がありました。この仮定を正面から扱って解析した結果をまとめたのが、立木先生との共著 Tachiki &amp; Umeda（2026）です。種子由来の子孫と、地下茎を介してクローナルに生産された子孫のあいだの非対称な競争が、一回繁殖型の多年生植物における異常に長い開花時間の進化を促しうることを示しました。</p>
+          <p>現在は、2報目の研究に取り組んでいます。</p>
+          <figure class="gabstract">
+            <img class="gabstract-img" src="fig1.png" alt="一方向的競争のイメージ">
+            <figcaption>一方向的競争のイメージ</figcaption>
+          </figure>
+        </div>
+      </section>
+      <section class="sec"><h2>References</h2>
+        <ol class="refs">
+          <li>Tachiki, Y., Makita, A., Suyama, Y., &amp; Satake, A. (2015). A spatially explicit model for flowering time in bamboos: long rhizomes drive the evolution of delayed flowering. Journal of Ecology, 103(3), 585–593.</li>
+          <li>Tachiki, Y., &amp; Umeda, E. (2026). Asymmetric competitions between seedling and clonal ramet promote the evolution of extraordinary long flowering time in monocarpic perennial plants. Plant Species Biology, 41(1), e70039. <a href="https://doi.org/10.1111/1442-1984.70039">doi:10.1111/1442-1984.70039</a></li>
+        </ol>
       </section>
 """,
   side=None)
@@ -227,6 +249,7 @@ ROUTLEDGE_URL = "https://www.routledge.com/Nonlinear-Dynamics-and-Chaos-With-App
 JOYWHY_URL = "https://www.quantamagazine.org/tag/the-joy-of-why/"
 JOYWHY_APPLE = "https://podcasts.apple.com/us/podcast/the-joy-of-why/id1608948873"
 STROGATZ_URL = "https://www.stevenstrogatz.com/"
+SYNC_URL = "https://www.amazon.co.jp/dp/4150504032"
 
 # 書影の代替: 本家カバーの複製ではなく、位相図モチーフのオリジナル tribute 図
 COVER_ART = """<svg viewBox="0 0 120 120" role="img" aria-label="位相図モチーフ">
@@ -238,9 +261,24 @@ COVER_ART = """<svg viewBox="0 0 120 120" role="img" aria-label="位相図モチ
   <circle cx="60" cy="54" r="3" fill="#fff" stroke="#1b330d" stroke-width="1.2"/>
 </svg>"""
 
+# SYNC 用の代替書影: 同期する振動子モチーフ (実物カバーの複製ではない)
+COVER_ART_SYNC = """<svg viewBox="0 0 120 120" role="img" aria-label="同期する振動子モチーフ">
+  <line x1="16" y1="86" x2="104" y2="86" stroke="#a9d49a" stroke-width="1" opacity="0.5"/>
+  <g stroke="#a9d49a" stroke-width="2.2">
+    <line x1="30" y1="86" x2="30" y2="48"/>
+    <line x1="54" y1="86" x2="54" y2="48"/>
+    <line x1="78" y1="86" x2="78" y2="48"/>
+    <line x1="102" y1="86" x2="102" y2="48"/>
+  </g>
+  <g fill="#c8a85c">
+    <circle cx="30" cy="44" r="4"/><circle cx="54" cy="44" r="4"/>
+    <circle cx="78" cy="44" r="4"/><circle cx="102" cy="44" r="4"/>
+  </g>
+</svg>"""
+
 PAGES["homage"] = dict(
   title="Homage — Steven Strogatz への敬意 | 梅田栄作 (Eisaku Umeda)",
-  desc="このサイトは数学者 Steven Strogatz の個人サイト stevenstrogatz.com へのオマージュ（パロディ）です。著書 Nonlinear Dynamics and Chaos、ポッドキャスト The Joy of Why、本家サイトへのリンク。",
+  desc="このサイトは数学者 Steven Strogatz の個人サイト stevenstrogatz.com へのオマージュ（パロディ）です。著書 SYNC（早川書房）・Nonlinear Dynamics and Chaos、ポッドキャスト The Joy of Why、本家サイトへのリンク。",
   ld=False,
   main=f"""
       <section class="sec"><h2>An Homage to Steven Strogatz</h2>
@@ -249,13 +287,19 @@ PAGES["homage"] = dict(
         <a class="visit-original" href="{STROGATZ_URL}">stevenstrogatz.com →</a>
       </section>
       <hr class="div">
-      <section class="sec"><h2>The Book That Started It</h2>
+      <section class="sec"><h2>悩んだらこの一冊</h2>
+        <h3 class="sub-h">一般書</h3>
         <div class="tribute">
-          <div class="bookcover" aria-hidden="true">
-            <div><div class="bt">Nonlinear Dynamics and Chaos</div><div class="bsub">With Applications to Physics, Biology, Chemistry, and Engineering</div></div>
-            <div class="bart">{COVER_ART}</div>
-            <div class="bau">Steven H. Strogatz</div>
+          <div>
+            <span class="authors">スティーヴン・ストロガッツ（蔵本由紀 監修・長尾力 訳）</span>
+            <a class="ttl" href="{SYNC_URL}">SYNC なぜ自然はシンクロしたがるのか</a>
+            <span class="venue">ハヤカワ文庫 NF 403 〈数理を愉しむ〉シリーズ・早川書房</span>
+            <p class="d">数理を用いて生命現象を解き明かす面白さ、研究者としてのスタンスがぎゅっと詰まった一冊です。Kindleで現在も販売しています。</p>
+            <a class="more" href="{SYNC_URL}">Kindleで読む（Amazon）</a>
           </div>
+        </div>
+        <h3 class="sub-h">教科書</h3>
+        <div class="tribute">
           <div>
             <span class="authors">Steven H. Strogatz</span>
             <a class="ttl" href="{BOOK_URL}">Nonlinear Dynamics and Chaos</a>
@@ -265,7 +309,6 @@ PAGES["homage"] = dict(
             <a class="more" href="{ROUTLEDGE_URL}">publisher</a>
           </div>
         </div>
-        <p class="note">※ 上の書影は本家カバーの複製ではなく、敬意をこめて描いた位相図モチーフのオリジナル代替図です。実物のカバー・購入は上記リンクから。</p>
       </section>
       <hr class="div">
       <section class="sec"><h2>His Podcast</h2>

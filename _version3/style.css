@@ -88,6 +88,20 @@ hr.div { border:0; border-top:1px solid var(--rule); margin: 1.8rem 0; }
 .lead { font-family: var(--serif); font-size: 1.05rem; line-height: 1.7; color: var(--ink); margin-bottom: 1.2rem; }
 .note { font-size: 0.86rem; color: var(--ink-mut); font-style: italic; margin-top: 1rem; }
 
+/* research: body prose + graphical-abstract placeholder (固定 2:1) + references */
+.rbody p { font-family: var(--serif); font-size: 1.0rem; line-height: 1.85; color: var(--ink); margin-bottom: 1.05rem; }
+.rbody p:last-child { margin-bottom: 0; }
+.gabstract { margin: 1.6rem 0; }
+.gabstract-box { width: 100%; aspect-ratio: 2 / 1; border: 1px solid var(--rule); background: #f6f6f4;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  color: var(--ink-mut); font-family: var(--museo); font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.7; }
+.gabstract-img { display:block; max-width: 360px; width:100%; height:auto; margin:0 auto; border:1px solid var(--rule); }
+.gabstract figcaption { font-family: var(--serif); font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.55rem; line-height: 1.55; }
+.refs { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.6; padding-left: 1.4rem; }
+.refs li { margin-bottom: 0.55rem; }
+.refs a { color: var(--green); }
+.refs a:hover { color: var(--orange); }
+
 /* feature (Latest Work) */
 .feature { display: grid; grid-template-columns: 92px 1fr; gap: 1.2rem; align-items: start; }
 .feature .cover { border:1px solid var(--rule); background: linear-gradient(155deg,#3a6b1f,#2D5016 55%,#1f3a0f); color:#fff; aspect-ratio: 3/4.1; display:flex; flex-direction:column; justify-content:space-between; padding: 0.6rem 0.5rem; }
@@ -105,7 +119,7 @@ hr.div { border:0; border-top:1px solid var(--rule); margin: 1.8rem 0; }
 .hcard { display:block; color: inherit; }
 .hcard .thumb { height: 78px; border:1px solid var(--rule); background:#f6f6f4; margin-bottom:0.55rem; display:flex; align-items:center; justify-content:center; }
 .hcard .thumb svg { width: 100%; height: 100%; }
-.hcard h3 { font-family: var(--museo); font-weight:600; text-transform: lowercase; letter-spacing:0.06em; font-size: 0.82rem; color: var(--orange-dk); border-bottom:1px solid var(--rule); padding-bottom:0.35rem; margin-bottom:0.6rem; }
+.hcard h3 { font-family: var(--museo); font-weight:600; text-transform: lowercase; letter-spacing:0.06em; font-size: 0.82rem; color: var(--orange-dk); margin-bottom:0; }
 .hcard p { font-size: 0.85rem; color: var(--ink-soft); line-height:1.55; }
 .hcard:hover h3 { color: var(--green); }
 
@@ -123,7 +137,7 @@ hr.div { border:0; border-top:1px solid var(--rule); margin: 1.8rem 0; }
 /* homage page */
 .manifesto { font-family: var(--serif); font-size: 1.08rem; line-height: 1.85; color: var(--ink); margin-bottom: 0.5rem; }
 .manifesto .en { display:block; font-style: italic; font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.9rem; line-height: 1.6; }
-.tribute { display:grid; grid-template-columns: 160px 1fr; gap: 1.5rem; align-items: start; }
+.tribute { display:block; }
 .bookcover { width:160px; aspect-ratio: 3/4.25; border:1px solid #1b330d; background: linear-gradient(158deg,#35631c 0%,#2D5016 58%,#1b330d 100%); color:#fff; display:flex; flex-direction:column; padding:0.75rem 0.6rem; box-shadow: 2px 3px 9px rgba(0,0,0,.22); }
 .bookcover .bt { font-family: var(--serif); font-weight:700; font-size:0.86rem; line-height:1.12; }
 .bookcover .bsub { font-size:0.5rem; opacity:.82; margin-top:0.25rem; line-height:1.2; }
@@ -160,8 +174,8 @@ hr.div { border:0; border-top:1px solid var(--rule); margin: 1.8rem 0; }
 .body-list { font-family: var(--serif); font-size:0.95rem; }
 
 /* footer */
-footer { background: var(--page); }
-.foot-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem 2.4rem; }
+footer { background: #ffffff; }
+.foot-inner { max-width: 1080px; margin: 0 auto; padding: 2.6rem 2rem 4.2rem; }
 .foot-nav { list-style:none; display:flex; flex-wrap:wrap; gap: 0 1rem; justify-content:flex-end; padding: 1rem 0 0.6rem; }
 .foot-nav a { font-family: var(--museo); font-weight:400; text-transform: lowercase; font-size: 0.86rem; color: var(--orange-dk); }
 .foot-nav a:hover { color: var(--green); }
