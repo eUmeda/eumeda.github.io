@@ -16,6 +16,9 @@ NAV = [
     ("contact",  "contact",  "contact.html"),
 ]
 
+def clean_link(href):
+    return "/" if href == "index.html" else "/" + href[:-5]
+
 FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
            "<rect width='64' height='64' rx='12' fill='%232D5016'/>"
            "<text x='32' y='45' font-family='Georgia,serif' font-size='40' fill='%23ffffff' text-anchor='middle'>E</text></svg>")
@@ -68,15 +71,15 @@ THUMBS.update({
 
 # ── highlights (home) ──
 HL = """<div class="highlights">
-  <a class="hcard" href="research.html">
+  <a class="hcard" href="/research">
     <div class="thumb">%(px_research)s</div>
     <h3>research</h3>
   </a>
-  <a class="hcard" href="works.html">
+  <a class="hcard" href="/works">
     <div class="thumb">%(px_works)s</div>
     <h3>works</h3>
   </a>
-  <a class="hcard" href="creative.html">
+  <a class="hcard" href="/creative">
     <div class="thumb">%(px_creative)s</div>
     <h3>creative</h3>
   </a>
@@ -236,7 +239,7 @@ PAGES["creative"] = dict(
         <p class="lead">梅田栄作は、<b>犬井作（Tsukuru Inui）</b>名義で創作活動をしています。</p>
         <ul class="worklist">
           <li>
-            <a class="t" href="/inui.html">犬井作 / Tsukuru Inui</a><span class="wip">工事中</span>
+            <a class="t" href="/inui">犬井作 / Tsukuru Inui</a><span class="wip">工事中</span>
             <div class="d">犬井作名義の創作活動をまとめるページ。これまでの作品と今後の活動を集約予定。</div>
           </li>
         </ul>
@@ -366,7 +369,7 @@ LD_JSON = """<script type="application/ld+json">
 
 def nav_html(active):
     items = "\n".join(
-        f'        <li><a href="{href}"{" class=\"active\"" if k==active else ""}>{label}</a></li>'
+        f'        <li><a href="{clean_link(href)}"{" class=\"active\"" if k==active else ""}>{label}</a></li>'
         for (k,label,href) in NAV)
     return f"""      <nav class="vnav" aria-label="Site">
       <ul>
@@ -383,13 +386,13 @@ def rail_html(active):
     </aside>"""
 
 def foot_nav():
-    return "\n".join(f'      <li><a href="{href}">{label}</a></li>' for (k,label,href) in NAV)
+    return "\n".join(f'      <li><a href="{clean_link(href)}">{label}</a></li>' for (k,label,href) in NAV)
 
 def render(active):
     p = PAGES[active]
     ld = ("\n" + LD_JSON) if p.get("ld") else ""
     _href = {k:h for k,_l,h in NAV if "#" not in h}[active]
-    url = BASE + ("/" if _href == "index.html" else "/" + _href)
+    url = BASE + clean_link(_href)
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -425,7 +428,7 @@ def render(active):
 
 <div class="banner">
   <div class="banner-inner">
-    <div class="site-title"><a href="index.html">Eisaku&nbsp;Umeda</a></div>
+    <div class="site-title"><a href="/">Eisaku&nbsp;Umeda</a></div>
     <svg class="culm-logo" viewBox="0 0 246 66" role="img" aria-label="Culm">
       <line x1="18" y1="14" x2="227.2" y2="14" stroke="#c8a85c" stroke-width="1.2"/>
       <text x="122.6" y="50" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#c8a85c"><tspan>C</tspan><tspan dx="23">U</tspan><tspan dx="23">L</tspan><tspan dx="23">M</tspan></text>
@@ -473,7 +476,7 @@ for (k,_,href) in NAV:
         f.write(render(k))
     print("wrote", href)
 
-_pages = ["/"] + ["/"+h for k,_l,h in NAV if "#" not in h and h!="index.html"] + ["/inui.html"]
+_pages = ["/"] + [clean_link(h) for k,_l,h in NAV if "#" not in h and h!="index.html"] + ["/inui"]
 open(os.path.join(OUT,"robots.txt"),"w",encoding="utf-8").write(
     "User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-Web\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
 _locs = "\n".join('  <url><loc>%s%s</loc></url>' % (BASE,p) for p in _pages)
