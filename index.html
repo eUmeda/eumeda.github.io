@@ -4,7 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eisaku Umeda — Ecology · Mathematical Biology</title>
-<meta name="description" content="梅田栄作 / Eisaku Umeda — 東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。犬井作(Tsukuru Inui)名義で創作活動。">
+<meta name="description" content="梅田栄作 (Eisaku Umeda)。東京都立大学 理学研究科 生命科学専攻 博士課程。数理生物学・進化生態学・植物生態学。個体群ベースシミュレーションでササタケ類の個体群動態と進化の相互作用を研究。犬井作 (Tsukuru Inui) 名義で創作活動。">
+<meta name="keywords" content="梅田栄作, 梅田 栄作, Eisaku Umeda, 数理生物学, 進化生態学, 植物生態学, 個体群動態, 個体群ベースシミュレーション, ササタケ, 東京都立大学, Mathematical Biology, Evolutionary Ecology, Plant Ecology, Population Dynamics, 犬井作, Tsukuru Inui">
+<meta name="author" content="梅田栄作 / Eisaku Umeda">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://eisaku-umeda.pages.dev/">
+<meta name="theme-color" content="#14110d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='13' fill='%2314110d'/><text x='32' y='45' font-family='Georgia,serif' font-size='40' fill='%23e0853a' text-anchor='middle'>E</text></svg>">
+<!-- Open Graph -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="梅田栄作 (Eisaku Umeda) — 数理生物学・進化生態学・植物生態学">
+<meta property="og:description" content="東京都立大学 理学研究科 博士課程。個体群ベースシミュレーションでササタケ類の個体群動態と進化を研究。犬井作 (Tsukuru Inui) 名義で創作活動。">
+<meta property="og:url" content="https://eisaku-umeda.pages.dev/">
+<meta property="og:image" content="https://eisaku-umeda.pages.dev/eisaku.png">
+<meta property="og:image:width" content="1432">
+<meta property="og:image:height" content="1233">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="Eisaku Umeda">
+<meta property="profile:first_name" content="栄作">
+<meta property="profile:last_name" content="梅田">
+<meta property="profile:username" content="EIUmeda">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="梅田栄作 (Eisaku Umeda) — Ecology · Mathematical Biology">
+<meta name="twitter:description" content="東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。犬井作 (Tsukuru Inui) 名義で創作活動。">
+<meta name="twitter:image" content="https://eisaku-umeda.pages.dev/eisaku.png">
+<meta name="twitter:site" content="@EIUmeda">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://eisaku-umeda.pages.dev/#person",
+  "name": "梅田栄作",
+  "alternateName": ["Eisaku Umeda", "犬井作", "Tsukuru Inui"],
+  "givenName": "栄作", "familyName": "梅田",
+  "url": "https://eisaku-umeda.pages.dev/",
+  "image": "https://eisaku-umeda.pages.dev/eisaku.png",
+  "jobTitle": "博士課程学生 (Doctoral Student)",
+  "affiliation": { "@type": "CollegeOrUniversity", "name": "東京都立大学 理学研究科 生命科学専攻", "url": "https://www.tmu.ac.jp/" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "東京都立大学", "url": "https://www.tmu.ac.jp/" },
+  "knowsAbout": ["Mathematical Biology","Evolutionary Ecology","Plant Ecology","Population Dynamics","数理生物学","進化生態学","植物生態学","個体群動態"],
+  "memberOf": [
+    { "@type": "Organization", "name": "日本生態学会" },
+    { "@type": "Organization", "name": "個体群生態学会" },
+    { "@type": "Organization", "name": "日本数理生物学会" }
+  ],
+  "sameAs": ["https://x.com/EIUmeda","https://researchmap.jp/eisaku_umeda","https://github.com/eUmeda"]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -50,6 +97,7 @@
 
   /* ── Hero ── */
   header.hero { padding: 6.5rem 0 2.6rem; }
+  .avatar { display:block; width:122px; height:122px; border-radius:50%; object-fit:cover; object-position:center 30%; border:2px solid var(--copper); box-shadow:0 0 0 6px rgba(224,133,58,0.10); margin-bottom:1.5rem; }
   .kicker { font-size: 0.74rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--copper); font-weight: 500; margin-bottom: 1.1rem; }
   h1.name {
     font-family: var(--serif); font-size: clamp(2.9rem, 8vw, 5.4rem);
@@ -143,12 +191,14 @@
     .work-list .d { grid-column: 1 / -1; }
     footer { flex-direction: column; align-items: flex-start; }
   }
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header class="hero">
+    <img class="avatar" src="eisaku.png" alt="梅田栄作 (Eisaku Umeda)" width="122" height="122">
     <p class="kicker">Ecology · Mathematical Biology</p>
     <h1 class="name">Eisaku&nbsp;Umeda<span class="jp">梅田 栄作</span></h1>
     <nav class="social" aria-label="SNS">
