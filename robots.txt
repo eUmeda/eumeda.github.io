@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 
-# AI search crawlers
 User-agent: GPTBot
 Allow: /
 User-agent: ClaudeBot

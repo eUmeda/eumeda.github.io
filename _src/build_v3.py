@@ -5,6 +5,7 @@ import os
 
 OUT = "/tmp/eumeda-hub/_version3"
 os.makedirs(OUT, exist_ok=True)
+BASE = "https://eisaku-umeda.pages.dev"
 
 NAV = [
     ("home",     "home",     "index.html"),
@@ -344,11 +345,12 @@ LD_JSON = """<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": "https://eumeda.github.io/#person",
+  "@id": "https://eisaku-umeda.pages.dev/#person",
   "name": "梅田栄作",
   "alternateName": ["Eisaku Umeda", "犬井作", "Tsukuru Inui"],
   "givenName": "栄作", "familyName": "梅田",
-  "url": "https://eumeda.github.io/",
+  "url": "https://eisaku-umeda.pages.dev/",
+  "image": "https://eisaku-umeda.pages.dev/eisaku.png",
   "jobTitle": "博士課程学生 (Doctoral Student)",
   "affiliation": { "@type": "CollegeOrUniversity", "name": "東京都立大学 理学研究科 生命科学専攻", "url": "https://www.tmu.ac.jp/" },
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "東京都立大学", "url": "https://www.tmu.ac.jp/" },
@@ -386,30 +388,33 @@ def foot_nav():
 def render(active):
     p = PAGES[active]
     ld = ("\n" + LD_JSON) if p.get("ld") else ""
-    cmp_links = ('  <a href="/_version1">v1 · Forge</a>\n'
-                 '  <a href="/_version2">v2 · Reading</a>\n'
-                 '  <a href="/_version3/" class="here">v3 · Strogatz</a>')
+    _href = {k:h for k,_l,h in NAV if "#" not in h}[active]
+    url = BASE + ("/" if _href == "index.html" else "/" + _href)
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,follow"><!-- TEMP 比較ページ -->
+<meta name="robots" content="index,follow">
 <title>{p['title']}</title>
 <meta name="description" content="{p['desc']}">
 <meta name="author" content="梅田栄作 / Eisaku Umeda">
-<link rel="canonical" href="https://eumeda.github.io/">
+<link rel="canonical" href="{url}">
 <meta name="theme-color" content="#dedede">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="{p['title']}">
 <meta property="og:description" content="{p['desc']}">
-<meta property="og:url" content="https://eumeda.github.io/">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{BASE}/eisaku.png">
+<meta property="og:image:width" content="1432">
+<meta property="og:image:height" content="1233">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="Eisaku Umeda">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{p['title']}">
 <meta name="twitter:description" content="{p['desc']}">
 <meta name="twitter:site" content="@EIUmeda">
+<meta name="twitter:image" content="{BASE}/eisaku.png">
 <link rel="icon" href="{FAVICON}">{ld}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -417,13 +422,6 @@ def render(active):
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="cmpbar">
-  <b>compare</b>
-{cmp_links}
-  <span class="sp"></span>
-  <a href="/">現行 live</a>
-</div>
 
 <div class="banner">
   <div class="banner-inner">
@@ -474,4 +472,12 @@ for (k,_,href) in NAV:
     with open(os.path.join(OUT, href), "w", encoding="utf-8") as f:
         f.write(render(k))
     print("wrote", href)
+
+_pages = ["/"] + ["/"+h for k,_l,h in NAV if "#" not in h and h!="index.html"] + ["/inui.html"]
+open(os.path.join(OUT,"robots.txt"),"w",encoding="utf-8").write(
+    "User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-Web\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
+_locs = "\n".join('  <url><loc>%s%s</loc></url>' % (BASE,p) for p in _pages)
+open(os.path.join(OUT,"sitemap.xml"),"w",encoding="utf-8").write(
+    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % _locs)
+print("wrote robots.txt + sitemap.xml")
 print("done")

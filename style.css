@@ -38,7 +38,7 @@ img { max-width: 100%; }
 .cmpbar .sp { flex:1; }
 
 /* ── Banner ── */
-.banner { margin-top: 31px; background: linear-gradient(to bottom, var(--banner1) 0%, var(--banner0) 100%); color:#fff; }
+.banner { margin-top: 0; background: linear-gradient(to bottom, var(--banner1) 0%, var(--banner0) 100%); color:#fff; }
 .banner-inner { max-width: 1080px; margin: 0 auto; padding: 2.5rem 2rem 2.2rem; display:flex; align-items:flex-end; justify-content:space-between; gap:1.2rem 1.5rem; flex-wrap:wrap; }
 .culm-logo { display:block; width:126px; height:auto; flex:none; margin-bottom:0.4rem; }
 .site-title { font-family: var(--museo); font-weight: 200; font-size: clamp(2rem, 5.4vw, 3.1rem); letter-spacing: 0.01em; color:#fff; line-height:1.05; }
