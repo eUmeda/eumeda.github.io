@@ -10,8 +10,8 @@
   --ink-mut: #888888;
   --rule:    #dddddd;
   --blue:    #0d4c92;   /* Strogatz links */
-  --orange:  #ea7d07;   /* Strogatz hover/accent */
-  --orange-dk:#ba6100;
+  --orange:  #9a7b3f;   /* Culm gold (v3.1 original accent) */
+  --orange-dk:#8a6a2e;  /* Culm gold (v3.1 original accent) */
   --navbg:   #666666;
   --banner1: #5f5d5d;
   --banner0: #000000;
@@ -39,7 +39,8 @@ img { max-width: 100%; }
 
 /* ── Banner ── */
 .banner { margin-top: 31px; background: linear-gradient(to bottom, var(--banner1) 0%, var(--banner0) 100%); color:#fff; }
-.banner-inner { max-width: 1080px; margin: 0 auto; padding: 2.5rem 2rem 2.2rem; }
+.banner-inner { max-width: 1080px; margin: 0 auto; padding: 2.5rem 2rem 2.2rem; display:flex; align-items:flex-end; justify-content:space-between; gap:1.2rem 1.5rem; flex-wrap:wrap; }
+.culm-logo { display:block; width:126px; height:auto; flex:none; margin-bottom:0.4rem; }
 .site-title { font-family: var(--museo); font-weight: 200; font-size: clamp(2rem, 5.4vw, 3.1rem); letter-spacing: 0.01em; color:#fff; line-height:1.05; }
 .site-title a { color:#fff; }
 .site-title a:hover { color: var(--orange); }
