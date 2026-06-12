@@ -196,6 +196,14 @@ WORK_ITEMS = [
  ("https://biol.fpark.tmu.ac.jp/plantecol/", "leaf", "植物生態学研究室",
   "東京都立大学 — Web 制作協力。"),
 ]
+SKILL_ITEMS = [
+ ("https://github.com/eUmeda/pdf-metadata-filler", "meta", "PDF メタデータ補完",
+  "論文 PDF の Title/Author/DOI を OpenAlex・CrossRef・CiNii・OCR・LLM の多段で自動補完する Claude Code skill。"),
+ ("https://github.com/eUmeda/session-resume", "resume", "セッション再開プロンプト生成",
+  "作業を中断する際、次回再開用の構造化プロンプトを LLM ベストプラクティスに沿って生成する Claude Code skill。"),
+ ("https://github.com/eUmeda/LLM-prompting-bestpractice", "prompt", "プロンプト設計ベストプラクティス",
+  "Anthropic・OpenAI・Edison の 3 ベンダー統合の作法で外部 LLM 用プロンプトを設計・レビューする Claude Code skill。"),
+]
 WORK_LIST_FUN = "\n".join(
   f'''          <li>
             <a class="t" href="{u}">{title}</a>
@@ -210,6 +218,13 @@ WORK_LIST_WORK = "\n".join(
           </li>'''
   for (u,t,title,desc) in WORK_ITEMS[3:])
 
+WORK_LIST_SKILLS = "\n".join(
+  f'''          <li>
+            <a class="t" href="{u}">{title}</a>
+            <div class="d">{desc}</div>
+          </li>'''
+  for (u,t,title,desc) in SKILL_ITEMS)
+
 PAGES["works"] = dict(
   title="Works — 梅田栄作 (Eisaku Umeda) | 研究・教育デモ・可視化・Web制作",
   desc="梅田栄作の成果物。研究・教育デモ集、サラブレッド系統年表、論文カード生成パイプライン、研究室サイト制作。Web とコードでつくる作品。",
@@ -221,6 +236,10 @@ PAGES["works"] = dict(
         <h3 class="sub-h">Made for Fun</h3>
         <ul class="worklist">
 {WORK_LIST_FUN}
+        </ul>
+        <h3 class="sub-h">Claude Code Skills</h3>
+        <ul class="worklist">
+{WORK_LIST_SKILLS}
         </ul>
         <h3 class="sub-h">Made for Work</h3>
         <ul class="worklist">
