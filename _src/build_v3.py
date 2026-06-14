@@ -117,9 +117,9 @@ CAREER_SECTION = {
  "en": """<section class="sec"><h2>Education</h2>
         <ul class="timeline wide">
           <li><span class="when">High school</span><span class="what">Fukuoka Prefectural Fukuoka High School — Library Committee / Literature Club</span></li>
-          <li><span class="when">2019.4 – 2023.3</span><span class="what">B.S. in Biological Sciences, Tokyo Metropolitan University</span></li>
-          <li><span class="when">2023.4 – 2025.3</span><span class="what">M.S. course, Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
-          <li><span class="when">2025.4 –</span><span class="what">Ph.D. course, Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
+          <li><span class="when">2019.4 – 2023.3</span><span class="what">Department of Biological Sciences, Faculty of Science, Tokyo Metropolitan University</span></li>
+          <li><span class="when">2023.4 – 2025.3</span><span class="what">Master's course, Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
+          <li><span class="when">2025.4 –</span><span class="what">Doctoral course, Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
         </ul>
       </section>""",
 }
@@ -133,7 +133,7 @@ RECENTLY = {
  "en": """<h3>recently</h3>
       <ul class="timeline">
         <li><span class="when">2026 · paper</span><span class="what">Tachiki &amp; Umeda (2026), <i>Plant Species Biology</i>.</span></li>
-        <li><span class="when">2025.4 –</span><span class="what">Began the Ph.D. course at Tokyo Metropolitan University.</span></li>
+        <li><span class="when">2025.4 –</span><span class="what">Began the doctoral course at Tokyo Metropolitan University.</span></li>
       </ul>""",
 }
 
@@ -264,7 +264,7 @@ WORK_ITEMS = [
   {"ja":"論文 PDF から A5 要約カード＋対訳 IMRAD PDF を生成するパイプライン（docling + LLM）。",
    "en":"A pipeline that turns a paper PDF into an A5 summary card plus a bilingual IMRAD PDF (docling + LLM)."}),
  ("https://mcb.fpark.tmu.ac.jp/", "mcb",
-  {"ja":"数理計算生物学研究室", "en":"Mathematical &amp; Computational Biology Lab"},
+  {"ja":"数理計算生物学研究室", "en":"Mathematical and Computational Biology Laboratory"},
   {"ja":"立木（Tachiki）グループ公式サイト — Web 制作協力。",
    "en":"Official site of the Tachiki group — web development support."}),
  ("https://biol.fpark.tmu.ac.jp/plantecol/", "leaf",
@@ -452,7 +452,7 @@ CONTACT_MAIN = {
           <li><a class="t" href="https://researchmap.jp/eisaku_umeda">researchmap</a><div class="d">Research output and profile.</div></li>
           <li><a class="t" href="https://github.com/eUmeda">github / @eUmeda</a><div class="d">Repositories of code and works.</div></li>
         </ul>
-        <p class="note">Affiliation: Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University (Minami-Osawa campus).</p>
+        <p class="note">Affiliation: Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University (Minami-Osawa Campus).</p>
       </section>
 """,
 }
