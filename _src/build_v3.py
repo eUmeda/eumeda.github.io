@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-# v3 (Strogatz homage) — multi-page site generator.
-# 中身は梅田栄作の実コンテンツ verbatim。タグラインのみオリジナル。design は stevenstrogatz.com への homage (colophon で明示)。
+# v3 (Strogatz homage) — multi-page, bilingual (JP/EN) site generator.
+# 中身は梅田栄作の実コンテンツ verbatim。EN は本人 JP 文の翻訳 (draft)。
+# JP は root (/) に、EN は /en/ サブフォルダに出力。design は stevenstrogatz.com への homage。
 import os
 
 OUT = "/tmp/eumeda-hub/_version3"
 os.makedirs(OUT, exist_ok=True)
+os.makedirs(os.path.join(OUT, "en"), exist_ok=True)
 BASE = "https://www.eisaku-umeda.com"
+LANGS = ("ja", "en")
 
 NAV = [
     ("home",     "home",     "index.html"),
@@ -19,72 +22,52 @@ NAV = [
 def clean_link(href):
     return "/" if href == "index.html" else "/" + href[:-5]
 
+def page_url(href, lang):
+    """Root-absolute clean URL for a page in a given locale.
+    ja: /, /research ...  |  en: /en/, /en/research ..."""
+    base = clean_link(href)
+    if lang == "ja":
+        return base
+    return "/en/" if href == "index.html" else "/en" + base
+
 FAVICON = ("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
            "<rect width='64' height='64' rx='12' fill='%232D5016'/>"
            "<text x='32' y='45' font-family='Georgia,serif' font-size='40' fill='%23ffffff' text-anchor='middle'>E</text></svg>")
 
-SOCIAL_X = ('<a href="https://x.com/EIUmeda" aria-label="X" title="X / @EIUmeda">'
-            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>')
-SOCIAL_RM = ('<a class="rm" href="https://researchmap.jp/eisaku_umeda" aria-label="researchmap" title="researchmap">'
-             '<img src="researchmap.gif" alt="researchmap" width="187" height="23"></a>')
-SOCIAL_GH = ('<a href="https://github.com/eUmeda" aria-label="GitHub" title="GitHub / @eUmeda">'
-             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.5 11.5 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.218.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>')
-
-# ヒーローの本人写真 (Strogatz 本家のポートレート位置)。eisaku.jpg を _version3/ に置く。
-PHOTO_FIG = """<figure class="portrait">
-  <img src="eisaku.png" alt="梅田栄作 (Eisaku Umeda) — 東京都立大学 理学研究科" width="440" height="440">
+def photo_fig(lang):
+    alt = ("梅田栄作 (Eisaku Umeda) — 東京都立大学 理学研究科" if lang == "ja"
+           else "Eisaku Umeda — Graduate School of Science, Tokyo Metropolitan University")
+    return f"""<figure class="portrait">
+  <img src="/eisaku.png" alt="{alt}" width="440" height="440">
   <figcaption class="cap">Photo Credit: Ann Umeda</figcaption>
 </figure>"""
 
-PORTRAIT_SVG = """<svg viewBox="0 0 200 240" role="img" aria-label="位相図（減衰振動子の相図）">
-  <rect width="200" height="240" fill="#fbfbfa"/>
-  <line x1="20" y1="120" x2="184" y2="120" stroke="#cfcfcf" stroke-width="1"/>
-  <line x1="100" y1="20" x2="100" y2="220" stroke="#cfcfcf" stroke-width="1"/>
-  <g stroke="#c9c9c9" stroke-width="1">
-    <line x1="46" y1="60" x2="58" y2="66"/><line x1="140" y1="60" x2="152" y2="70"/>
-    <line x1="46" y1="180" x2="58" y2="174"/><line x1="140" y1="180" x2="152" y2="170"/>
-    <line x1="70" y1="40" x2="84" y2="44"/><line x1="116" y1="196" x2="130" y2="200"/>
-  </g>
-  <path d="M178 36 C 120 6, 36 30, 30 96 C 26 156, 96 196, 150 176 C 188 162, 188 118, 150 108 C 118 100, 86 120, 92 146 C 96 166, 124 168, 132 150" fill="none" stroke="#2D5016" stroke-width="2.1"/>
-  <path d="M26 196 C 70 214, 150 206, 174 150" fill="none" stroke="#ea7d07" stroke-width="1.7"/>
-  <circle cx="116" cy="138" r="4.4" fill="#2D5016"/>
-  <circle cx="100" cy="120" r="4" fill="#fff" stroke="#333" stroke-width="1.6"/>
-  <path d="M150 176 l -9 -1 l 5 7 z" fill="#2D5016"/>
-  <path d="M174 150 l -2 -9 l -7 6 z" fill="#ea7d07"/>
-</svg>"""
-
-# Works のサムネ (5 種, 各々モチーフ違い)
-THUMBS = {
- "demos": '<svg viewBox="0 0 120 78"><line x1="10" y1="68" x2="110" y2="68" stroke="#cfcfcf"/><line x1="10" y1="10" x2="10" y2="68" stroke="#cfcfcf"/><path d="M12 66 C 40 64, 52 18, 70 18 C 88 18, 100 60, 112 40" fill="none" stroke="#2D5016" stroke-width="2"/><circle cx="70" cy="18" r="3" fill="#9a7b3f"/></svg>',
- "sire":  '<svg viewBox="0 0 120 78"><line x1="20" y1="39" x2="48" y2="39" stroke="#2D5016" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="22" stroke="#2D5016" stroke-width="2"/><line x1="48" y1="39" x2="72" y2="56" stroke="#2D5016" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="14" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="22" x2="100" y2="30" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="48" stroke="#cfcfcf" stroke-width="2"/><line x1="72" y1="56" x2="100" y2="64" stroke="#cfcfcf" stroke-width="2"/><circle cx="20" cy="39" r="3.4" fill="#9a7b3f"/></svg>',
- "cards": '<svg viewBox="0 0 120 78"><rect x="30" y="20" width="44" height="40" fill="#fff" stroke="#cfcfcf"/><rect x="40" y="16" width="44" height="40" fill="#fff" stroke="#2D5016"/><line x1="46" y1="26" x2="78" y2="26" stroke="#9a7b3f" stroke-width="2"/><line x1="46" y1="34" x2="78" y2="34" stroke="#cfcfcf"/><line x1="46" y1="40" x2="72" y2="40" stroke="#cfcfcf"/></svg>',
- "mcb":   '<svg viewBox="0 0 120 78"><line x1="60" y1="39" x2="30" y2="20" stroke="#cfcfcf"/><line x1="60" y1="39" x2="92" y2="24" stroke="#cfcfcf"/><line x1="60" y1="39" x2="34" y2="58" stroke="#cfcfcf"/><line x1="60" y1="39" x2="88" y2="58" stroke="#cfcfcf"/><circle cx="60" cy="39" r="5" fill="#2D5016"/><circle cx="30" cy="20" r="3.4" fill="#9a7b3f"/><circle cx="92" cy="24" r="3.4" fill="#2D5016"/><circle cx="34" cy="58" r="3.4" fill="#2D5016"/><circle cx="88" cy="58" r="3.4" fill="#2D5016"/></svg>',
- "leaf":  '<svg viewBox="0 0 120 78"><path d="M60 12 C 38 30, 38 50, 60 66 C 82 50, 82 30, 60 12 Z" fill="none" stroke="#2D5016" stroke-width="2"/><path d="M60 12 C 60 30, 60 50, 60 66" stroke="#cfcfcf"/><path d="M60 30 L 49 26 M60 38 L 71 34 M60 46 L 49 42" stroke="#cfcfcf"/><circle cx="60" cy="39" r="3" fill="#9a7b3f"/></svg>',
- "pen":   '<svg viewBox="0 0 120 78" role="img" aria-label="ペン"><line x1="46" y1="54" x2="96" y2="16" stroke="#2D5016" stroke-width="3"/><path d="M46 54 L40 66 L52 60 Z" fill="#2D5016"/><circle cx="36" cy="70" r="2.6" fill="#9a7b3f"/><line x1="60" y1="44" x2="66" y2="40" stroke="#9a7b3f" stroke-width="3"/><line x1="22" y1="69" x2="38" y2="69" stroke="#cfcfcf" stroke-width="2"/></svg>',
-}
-
+# Works / Highlights のピクセルサムネ (HL でのみ使用)
+THUMBS = {}
 THUMBS.update({
  'px_research': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="research"><rect x="73" y="24" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="24" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="29" width="5" height="5" fill="#2D5016"/><rect x="58" y="29" width="5" height="5" fill="#2D5016"/><rect x="73" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="34" width="5" height="5" fill="#2D5016"/><rect x="58" y="34" width="5" height="5" fill="#2D5016"/><rect x="73" y="34" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="34" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="39" width="5" height="5" fill="#2D5016"/><rect x="38" y="39" width="5" height="5" fill="#2D5016"/><rect x="53" y="39" width="5" height="5" fill="#2D5016"/><rect x="58" y="39" width="5" height="5" fill="#2D5016"/><rect x="73" y="39" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="39" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="44" width="5" height="5" fill="#2D5016"/><rect x="38" y="44" width="5" height="5" fill="#2D5016"/><rect x="53" y="44" width="5" height="5" fill="#2D5016"/><rect x="58" y="44" width="5" height="5" fill="#2D5016"/><rect x="73" y="44" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="44" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="49" width="5" height="5" fill="#2D5016"/><rect x="38" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="49" width="5" height="5" fill="#2D5016"/><rect x="58" y="49" width="5" height="5" fill="#2D5016"/><rect x="73" y="49" width="5" height="5" fill="#9a7b3f"/><rect x="78" y="49" width="5" height="5" fill="#9a7b3f"/><rect x="33" y="54" width="5" height="5" fill="#2D5016"/><rect x="38" y="54" width="5" height="5" fill="#2D5016"/><rect x="43" y="54" width="5" height="5" fill="#2D5016"/><rect x="48" y="54" width="5" height="5" fill="#2D5016"/><rect x="53" y="54" width="5" height="5" fill="#2D5016"/><rect x="58" y="54" width="5" height="5" fill="#2D5016"/><rect x="63" y="54" width="5" height="5" fill="#2D5016"/><rect x="68" y="54" width="5" height="5" fill="#2D5016"/><rect x="73" y="54" width="5" height="5" fill="#2D5016"/><rect x="78" y="54" width="5" height="5" fill="#2D5016"/><rect x="83" y="54" width="5" height="5" fill="#2D5016"/></svg>',
  'px_works': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="works"><rect x="33" y="19" width="5" height="5" fill="#2D5016"/><rect x="38" y="19" width="5" height="5" fill="#2D5016"/><rect x="43" y="19" width="5" height="5" fill="#2D5016"/><rect x="48" y="19" width="5" height="5" fill="#2D5016"/><rect x="53" y="19" width="5" height="5" fill="#2D5016"/><rect x="58" y="19" width="5" height="5" fill="#2D5016"/><rect x="63" y="19" width="5" height="5" fill="#2D5016"/><rect x="68" y="19" width="5" height="5" fill="#2D5016"/><rect x="73" y="19" width="5" height="5" fill="#2D5016"/><rect x="78" y="19" width="5" height="5" fill="#2D5016"/><rect x="83" y="19" width="5" height="5" fill="#2D5016"/><rect x="33" y="24" width="5" height="5" fill="#2D5016"/><rect x="83" y="24" width="5" height="5" fill="#2D5016"/><rect x="33" y="29" width="5" height="5" fill="#2D5016"/><rect x="43" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="48" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="53" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="58" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="63" y="29" width="5" height="5" fill="#9a7b3f"/><rect x="83" y="29" width="5" height="5" fill="#2D5016"/><rect x="33" y="34" width="5" height="5" fill="#2D5016"/><rect x="83" y="34" width="5" height="5" fill="#2D5016"/><rect x="33" y="39" width="5" height="5" fill="#2D5016"/><rect x="43" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="48" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="53" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="58" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="63" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="68" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="73" y="39" width="5" height="5" fill="#4f7a2e"/><rect x="83" y="39" width="5" height="5" fill="#2D5016"/><rect x="33" y="44" width="5" height="5" fill="#2D5016"/><rect x="43" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="48" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="53" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="63" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="68" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="73" y="44" width="5" height="5" fill="#4f7a2e"/><rect x="83" y="44" width="5" height="5" fill="#2D5016"/><rect x="33" y="49" width="5" height="5" fill="#2D5016"/><rect x="38" y="49" width="5" height="5" fill="#2D5016"/><rect x="43" y="49" width="5" height="5" fill="#2D5016"/><rect x="48" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="49" width="5" height="5" fill="#2D5016"/><rect x="58" y="49" width="5" height="5" fill="#2D5016"/><rect x="63" y="49" width="5" height="5" fill="#2D5016"/><rect x="68" y="49" width="5" height="5" fill="#2D5016"/><rect x="73" y="49" width="5" height="5" fill="#2D5016"/><rect x="78" y="49" width="5" height="5" fill="#2D5016"/><rect x="83" y="49" width="5" height="5" fill="#2D5016"/><rect x="53" y="54" width="5" height="5" fill="#2D5016"/><rect x="58" y="54" width="5" height="5" fill="#2D5016"/><rect x="63" y="54" width="5" height="5" fill="#2D5016"/><rect x="43" y="59" width="5" height="5" fill="#2D5016"/><rect x="48" y="59" width="5" height="5" fill="#2D5016"/><rect x="53" y="59" width="5" height="5" fill="#2D5016"/><rect x="58" y="59" width="5" height="5" fill="#2D5016"/><rect x="63" y="59" width="5" height="5" fill="#2D5016"/><rect x="68" y="59" width="5" height="5" fill="#2D5016"/><rect x="73" y="59" width="5" height="5" fill="#2D5016"/></svg>',
  'px_creative': '<svg viewBox="0 0 120 78" shape-rendering="crispEdges" role="img" aria-label="pen"><rect x="76" y="15" width="4" height="4" fill="#2D5016"/><rect x="80" y="15" width="4" height="4" fill="#2D5016"/><rect x="72" y="19" width="4" height="4" fill="#2D5016"/><rect x="76" y="19" width="4" height="4" fill="#2D5016"/><rect x="80" y="19" width="4" height="4" fill="#2D5016"/><rect x="68" y="23" width="4" height="4" fill="#2D5016"/><rect x="72" y="23" width="4" height="4" fill="#2D5016"/><rect x="76" y="23" width="4" height="4" fill="#2D5016"/><rect x="64" y="27" width="4" height="4" fill="#2D5016"/><rect x="68" y="27" width="4" height="4" fill="#2D5016"/><rect x="72" y="27" width="4" height="4" fill="#2D5016"/><rect x="60" y="31" width="4" height="4" fill="#2D5016"/><rect x="64" y="31" width="4" height="4" fill="#2D5016"/><rect x="68" y="31" width="4" height="4" fill="#2D5016"/><rect x="56" y="35" width="4" height="4" fill="#2D5016"/><rect x="60" y="35" width="4" height="4" fill="#2D5016"/><rect x="64" y="35" width="4" height="4" fill="#2D5016"/><rect x="52" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="56" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="39" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="52" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="56" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="43" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="52" y="47" width="4" height="4" fill="#1b330d"/><rect x="56" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="60" y="47" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="48" y="51" width="4" height="4" fill="#1b330d"/><rect x="52" y="51" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="55" width="4" height="4" fill="#9a7b3f"/><rect x="44" y="55" width="4" height="4" fill="#9a7b3f"/><rect x="36" y="59" width="4" height="4" fill="#9a7b3f"/><rect x="40" y="59" width="4" height="4" fill="#9a7b3f"/><rect x="36" y="63" width="4" height="4" fill="#9a7b3f"/></svg>',
 })
 
-# ── highlights (home) ──
-HL = """<div class="highlights">
-  <a class="hcard" href="/research">
-    <div class="thumb">%(px_research)s</div>
+# ── highlights (home) — internal links are locale-aware ──
+def HL(lang):
+    return f"""<div class="highlights">
+  <a class="hcard" href="{page_url('research.html', lang)}">
+    <div class="thumb">{THUMBS['px_research']}</div>
     <h3>research</h3>
   </a>
-  <a class="hcard" href="/works">
-    <div class="thumb">%(px_works)s</div>
+  <a class="hcard" href="{page_url('works.html', lang)}">
+    <div class="thumb">{THUMBS['px_works']}</div>
     <h3>works</h3>
   </a>
-  <a class="hcard" href="/creative">
-    <div class="thumb">%(px_creative)s</div>
+  <a class="hcard" href="{page_url('creative.html', lang)}">
+    <div class="thumb">{THUMBS['px_creative']}</div>
     <h3>creative</h3>
   </a>
-</div>""" % THUMBS
+</div>"""
 
+# Featured paper — citation, language-neutral (shared)
 FEATURE = """<div class="feature">
   <div class="cover" aria-hidden="true"><span class="j">Plant<br>Species<br>Biology</span><span class="y">2026</span></div>
   <div>
@@ -95,6 +78,7 @@ FEATURE = """<div class="feature">
   </div>
 </div>"""
 
+# elsewhere — labels already English (shared)
 ELSEWHERE = """<h3>elsewhere</h3>
 <ul class="affil links">
   <li><a href="https://x.com/EIUmeda">X / @EIUmeda</a></li>
@@ -103,64 +87,120 @@ ELSEWHERE = """<h3>elsewhere</h3>
   <li><a href="https://github.com/eUmeda">github / @eUmeda</a></li>
 </ul>"""
 
-BIO_BODY = """<div class="bio">
-          <p>梅田栄作（Eisaku Umeda）は個体群動態と進化の相互作用を研究しています。専門は数理生物学・進化生態学・植物生態学。東京都立大学 理学研究科 数理計算生物学研究室に所属しています。</p>
-        </div>"""
+# ── tagline (home heading): (primary, sub) ──
+TAGLINE = {
+ "ja": ("生命の進化を数理で解く", "Solving the evolution of life through mathematics."),
+ "en": ("Solving the evolution of life through mathematics.", "生命の進化を数理で解く"),
+}
 
-CAREER_SECTION = """<section class="sec"><h2>経歴</h2>
+BIO_BODY = {
+ "ja": """<div class="bio">
+          <p>梅田栄作（Eisaku Umeda）は個体群動態と進化の相互作用を研究しています。専門は数理生物学・進化生態学・植物生態学。東京都立大学 理学研究科 数理計算生物学研究室に所属しています。</p>
+        </div>""",
+ "en": """<div class="bio">
+          <p>Eisaku Umeda studies the interplay between population dynamics and evolution. His fields are mathematical biology, evolutionary ecology, and plant ecology. He belongs to the Mathematical and Computational Biology Laboratory, Graduate School of Science, Tokyo Metropolitan University.</p>
+        </div>""",
+}
+
+CAREER_SECTION = {
+ "ja": """<section class="sec"><h2>経歴</h2>
         <ul class="timeline wide">
           <li><span class="when">高校</span><span class="what">福岡県立福岡高校　図書委員会／文芸部 出身</span></li>
           <li><span class="when">2019.4 – 2023.3</span><span class="what">東京都立大学 理学部 生命科学</span></li>
           <li><span class="when">2023.4 – 2025.3</span><span class="what">東京都立大学大学院 理学研究科 生命科学専攻　修士課程</span></li>
           <li><span class="when">2025.4 –</span><span class="what">東京都立大学大学院 理学研究科 生命科学専攻　博士課程</span></li>
         </ul>
-      </section>"""
-
-SOCIETIES_SECTION = """<section class="sec"><h2>所属学会</h2>
-        <ul class="affil body-list">
-          <li>日本生態学会</li>
-          <li>個体群生態学会</li>
-          <li>数理生物学会</li>
+      </section>""",
+ "en": """<section class="sec"><h2>Education</h2>
+        <ul class="timeline wide">
+          <li><span class="when">High school</span><span class="what">Fukuoka Prefectural Fukuoka High School — Library Committee / Literature Club</span></li>
+          <li><span class="when">2019.4 – 2023.3</span><span class="what">B.S. in Biological Sciences, Tokyo Metropolitan University</span></li>
+          <li><span class="when">2023.4 – 2025.3</span><span class="what">M.S. course, Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
+          <li><span class="when">2025.4 –</span><span class="what">Ph.D. course, Biological Sciences, Graduate School of Science, Tokyo Metropolitan University</span></li>
         </ul>
-      </section>"""
+      </section>""",
+}
 
-RECENTLY = """<h3>recently</h3>
+RECENTLY = {
+ "ja": """<h3>recently</h3>
       <ul class="timeline">
         <li><span class="when">2026 · paper</span><span class="what">Tachiki &amp; Umeda (2026), <i>Plant Species Biology</i>.</span></li>
         <li><span class="when">2025.4 –</span><span class="what">東京都立大学大学院 博士課程に進学。</span></li>
-      </ul>"""
+      </ul>""",
+ "en": """<h3>recently</h3>
+      <ul class="timeline">
+        <li><span class="when">2026 · paper</span><span class="what">Tachiki &amp; Umeda (2026), <i>Plant Species Biology</i>.</span></li>
+        <li><span class="when">2025.4 –</span><span class="what">Began the Ph.D. course at Tokyo Metropolitan University.</span></li>
+      </ul>""",
+}
 
 # ───────────────────────────── per-page content ─────────────────────────────
-PAGES = {}
+TITLES = {
+ "home": {
+   "ja": "梅田栄作 (Eisaku Umeda) — 数理生物学・進化生態学・植物生態学 | 東京都立大学",
+   "en": "Eisaku Umeda (梅田栄作) — Mathematical Biology, Evolutionary Ecology, Plant Ecology | Tokyo Metropolitan University"},
+ "research": {
+   "ja": "Research — 梅田栄作 (Eisaku Umeda) | 数理生物学・進化生態学・植物生態学",
+   "en": "Research — Eisaku Umeda | Mathematical Biology, Evolutionary Ecology, Plant Ecology"},
+ "works": {
+   "ja": "Works — 梅田栄作 (Eisaku Umeda) | 研究・教育デモ・可視化・Web制作",
+   "en": "Works — Eisaku Umeda | Research & Teaching Demos, Visualization, Web"},
+ "creative": {
+   "ja": "Creative — 犬井作 (Tsukuru Inui) | 梅田栄作 (Eisaku Umeda)",
+   "en": "Creative — Tsukuru Inui | Eisaku Umeda"},
+ "homage": {
+   "ja": "Homage — Steven Strogatz への敬意 | 梅田栄作 (Eisaku Umeda)",
+   "en": "Homage — A Tribute to Steven Strogatz | Eisaku Umeda"},
+ "contact": {
+   "ja": "Contact — 梅田栄作 (Eisaku Umeda) | 東京都立大学",
+   "en": "Contact — Eisaku Umeda | Tokyo Metropolitan University"},
+}
 
-PAGES["home"] = dict(
-  title="梅田栄作 (Eisaku Umeda) — 数理生物学・進化生態学・植物生態学 | 東京都立大学",
-  desc="梅田栄作 (Eisaku Umeda)。東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。個体ベースシミュレーションでササタケ類の個体群動態と進化を研究。犬井作 (Tsukuru Inui) 名義で創作活動。",
-  ld=True,
-  main=f"""
+DESCS = {
+ "home": {
+   "ja": "梅田栄作 (Eisaku Umeda)。東京都立大学 理学研究科 博士課程。数理生物学・進化生態学・植物生態学。個体ベースシミュレーションでササタケ類の個体群動態と進化を研究。犬井作 (Tsukuru Inui) 名義で創作活動。",
+   "en": "Eisaku Umeda — doctoral student at the Graduate School of Science, Tokyo Metropolitan University. Mathematical biology, evolutionary ecology, and plant ecology. Studies the population dynamics and evolution of bamboos using individual-based simulation. Also writes fiction under the pen name Tsukuru Inui."},
+ "research": {
+   "ja": "梅田栄作の研究紹介。生活史戦略の進化に関心。最長120年待って一斉開花するササタケ類の開花時間の進化を、個体ベースシミュレーションと一方向的競争の明示化から研究。査読論文 Tachiki and Umeda (2026, Plant Species Biology)。",
+   "en": "Eisaku Umeda's research. Interested in the evolution of life-history strategies. Studies the evolution of flowering time in bamboos — which can wait up to 120 years before flowering en masse — through individual-based simulation and the explicit treatment of asymmetric competition. Peer-reviewed paper: Tachiki and Umeda (2026, Plant Species Biology)."},
+ "works": {
+   "ja": "梅田栄作の成果物。研究・教育デモ集、サラブレッド系統年表、論文カード生成パイプライン、研究室サイト制作。Web とコードでつくる作品。",
+   "en": "Eisaku Umeda's works: research and teaching demos, a thoroughbred sire-line chronicle, a paper-card generation pipeline, and laboratory websites. Things built with the web and code."},
+ "creative": {
+   "ja": "梅田栄作は犬井作（Tsukuru Inui）名義で創作活動をしています。これまでの作品と今後の活動を集約予定。",
+   "en": "Eisaku Umeda creates under the pen name Tsukuru Inui. Past works and future activities will be gathered here."},
+ "homage": {
+   "ja": "このサイトは数学者 Steven Strogatz の個人サイト stevenstrogatz.com へのオマージュ（パロディ）です。著書 SYNC（早川書房）・Nonlinear Dynamics and Chaos、ポッドキャスト The Joy of Why、本家サイトへのリンク。",
+   "en": "This site is an homage (a parody) of mathematician Steven Strogatz's personal site, stevenstrogatz.com. Links to his books SYNC and Nonlinear Dynamics and Chaos, his podcast The Joy of Why, and the original site."},
+ "contact": {
+   "ja": "梅田栄作 (Eisaku Umeda) への連絡先。X (@EIUmeda)・researchmap・GitHub。東京都立大学 理学研究科 生命科学専攻。",
+   "en": "How to reach Eisaku Umeda: X (@EIUmeda), researchmap, and GitHub. Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University."},
+}
+
+def home_main(lang):
+    tag_main, tag_sub = TAGLINE[lang]
+    latest = "Latest Work"
+    highlights = "Highlights"
+    return f"""
       <div class="home-heading">
-        <p class="tagline">生命の進化を数理で解く
-          <span class="en">Solving the evolution of life through mathematics.</span></p>
+        <p class="tagline">{tag_main}
+          <span class="en">{tag_sub}</span></p>
       </div>
       <section class="hero bio-hero">
-        {PHOTO_FIG}
-        {BIO_BODY}
+        {photo_fig(lang)}
+        {BIO_BODY[lang]}
       </section>
       <hr class="div">
-      {CAREER_SECTION}
+      {CAREER_SECTION[lang]}
       <hr class="div">
-      <section class="sec"><h2>Latest Work</h2>{FEATURE}</section>
+      <section class="sec"><h2>{latest}</h2>{FEATURE}</section>
       <hr class="div">
-      <section class="sec"><h2>Highlights</h2>{HL}</section>
-""",
-  side=None)
+      <section class="sec"><h2>{highlights}</h2>{HL(lang)}</section>
+"""
 
-PAGES["research"] = dict(
-  title="Research — 梅田栄作 (Eisaku Umeda) | 数理生物学・進化生態学・植物生態学",
-  desc="梅田栄作の研究紹介。生活史戦略の進化に関心。最長120年待って一斉開花するササタケ類の開花時間の進化を、個体ベースシミュレーションと一方向的競争の明示化から研究。査読論文 Tachiki and Umeda (2026, Plant Species Biology)。",
-  ld=False,
-  main="""
-      <section class="sec"><h2>Research</h2>
+# research narrative (本人 JP 文 verbatim / EN は draft 翻訳)
+RESEARCH_BODY = {
+ "ja": """
         <h3 class="sub-h">1. 私の研究のはじまりと最初に出版された論文</h3>
         <div class="rbody">
           <p>私の興味は「生活史戦略（life history strategy）の進化」にあります。生活史戦略とは、生物が特定の環境で適応度を最大化するために採る、繁殖と生存の行動の組み合わせを指します（Buss &amp; Schmitt, 2019）。たとえば植物がいつ、生涯で何回花を咲かせるか、といった特徴です。サクラは毎年花咲きますが、竹林へ行ってもほとんど花を咲かせていることはありませんよね。このような、生き物がいつ育ち、いつ繁殖するかといった特徴が、大小・種類を問わず、どのように多様になったかに興味があります。</p>
@@ -170,92 +210,110 @@ PAGES["research"] = dict(
           <p>当初は先行研究の結果をどうしても再現できず、原因を探るうちに、鍵が一方向的競争にあると分かってきました。光をめぐる競争では、背の高い個体が光を独占し、低い個体を被陰します。優位が一方向にしか働かないこの非対称性は、先行研究では暗黙に仮定されていましたが、私のモデルでは明示的に組み込む必要がありました。この仮定を正面から扱って解析した結果をまとめたのが、立木先生との共著 Tachiki &amp; Umeda（2026）です。種子由来の子孫と、地下茎を介してクローナルに生産された子孫のあいだの非対称な競争が、一回繁殖型の多年生植物における異常に長い開花時間の進化を促しうることを示しました。</p>
           <p>現在は、2報目の研究に取り組んでいます。</p>
           <figure class="gabstract">
-            <img class="gabstract-img" src="fig1.png" alt="一方向的競争のイメージ">
+            <img class="gabstract-img" src="/fig1.png" alt="一方向的競争のイメージ">
             <figcaption>一方向的競争のイメージ</figcaption>
           </figure>
-        </div>
-      </section>
+        </div>""",
+ "en": """
+        <h3 class="sub-h">1. How my research began, and my first published paper</h3>
+        <div class="rbody">
+          <p>My interest lies in the evolution of life-history strategies. A life-history strategy is the combination of reproductive and survival behaviors that an organism adopts to maximize its fitness in a particular environment (Buss &amp; Schmitt, 2019) — for instance, when, and how many times in its life, a plant flowers. Cherry trees bloom every year, yet when you step into a bamboo grove you almost never find one in flower. I am fascinated by how such traits — when an organism grows and when it reproduces — came to be so diverse across living things, whatever their size or kind.</p>
+          <p>It began with a paper by my advisor that I happened to read: a theoretical study showing that the number of years bamboos wait before flowering grows longer as their rhizomes grow longer. Bamboos follow a monocarpic, perennial life history. After germinating from seed, they spend decades extending underground branches to produce clones (the shoots we call <i>takenoko</i>), until at last they flower and die all at once. This time from germination to flowering is species-specific, ranging from 3 to 120 years, and across Asia it shows a latitudinal gradient, lengthening from the tropics toward the temperate zone. The paper argued that this gradient might be generated by differences in rhizome structure.</p>
+          <p>In fact, while East Asian countries such as Japan, China, and Korea have bamboo groves, Indonesia, India, and Sri Lanka do not. The bamboos of tropical Asia produce and place their clones close to the parent — a consequence of rhizome structure. Temperate bamboos have, species by species, thin and long rhizomes, while tropical ones have thick and short rhizomes. Tachiki et al. (2015, J. Ecol.) showed not only that the latitudinal gradient in flowering cycles parallels the tropical-to-temperate change in rhizome structure, but that this difference in rhizome structure may itself be what creates the gradient.</p>
+          <p>This was the first mathematical-biology paper I had ever read, and it was unlike anything in my world until then. When the rhizome is long, the distance between clones grows; the competition among clones during the waiting period before flowering is eased; and so clonal growth becomes more efficient and flowering is delayed even further. In high school I belonged to the literature club, and — admiring the science fiction of Project Itoh and Toh EnJoe — I wrote my own (would-be) speculative stories; to me, this endeavor was electrifying. With the tool of mathematics, one could pursue truth like a character in a science-fiction novel. That was the conviction I drew from Tachiki et al. (2015, J. Ecol.). I want to do this for real! — that is what I thought.</p>
+          <p>At first I simply could not reproduce the earlier study's results, and as I searched for the cause I came to see that the key lay in asymmetric competition. In competition for light, taller individuals monopolize the light and shade out shorter ones. This asymmetry — where the advantage runs in only one direction — had been assumed implicitly in the earlier work, but in my model it had to be built in explicitly. The analysis that confronts this assumption head-on is the paper I co-authored with Prof. Tachiki, Tachiki &amp; Umeda (2026). We showed that asymmetric competition between seed-derived offspring and offspring produced clonally through rhizomes can drive the evolution of extraordinarily long flowering times in monocarpic perennial plants.</p>
+          <p>I am now working on my second study.</p>
+          <figure class="gabstract">
+            <img class="gabstract-img" src="/fig1.png" alt="An illustration of asymmetric competition">
+            <figcaption>An illustration of asymmetric competition</figcaption>
+          </figure>
+        </div>""",
+}
+
+REFERENCES = """
       <section class="sec"><h2>References</h2>
         <ol class="refs">
           <li>Buss, D., &amp; Schmitt, D. (2019). Mate preferences and their behavioral manifestations. Annual Review of Psychology, 70(1), 77–110.</li>
           <li>Tachiki, Y., Makita, A., Suyama, Y., &amp; Satake, A. (2015). A spatially explicit model for flowering time in bamboos: long rhizomes drive the evolution of delayed flowering. Journal of Ecology, 103(3), 585–593.</li>
           <li>Tachiki, Y., &amp; Umeda, E. (2026). Asymmetric competitions between seedling and clonal ramet promote the evolution of extraordinary long flowering time in monocarpic perennial plants. Plant Species Biology, 41(1), e70039. <a href="https://doi.org/10.1111/1442-1984.70039">doi:10.1111/1442-1984.70039</a></li>
         </ol>
-      </section>
-""",
-  side=None)
+      </section>"""
 
-# Works cards
+def research_main(lang):
+    head = "Research"
+    return f"""
+      <section class="sec"><h2>{head}</h2>{RESEARCH_BODY[lang]}
+      </section>{REFERENCES}
+"""
+
+# Works cards — (url, thumb-key[unused in list], {ja,en title}, {ja,en desc})
 WORK_ITEMS = [
- ("https://eumeda.github.io/Claude-public/", "demos", "研究・教育デモ集",
-  "非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装集。"),
- ("https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/", "sire", "サラブレッド系統年表",
-  "Darley Arabian から Equinox までの父系（sire-line）の流れを辿る年表型ビジュアライゼーション。"),
- ("https://github.com/eUmeda/Claude-papercards", "cards", "論文カード生成",
-  "論文 PDF から A5 要約カード＋対訳 IMRAD PDF を生成するパイプライン（docling + LLM）。"),
- ("https://mcb.fpark.tmu.ac.jp/", "mcb", "数理計算生物学研究室",
-  "立木（Tachiki）グループ公式サイト — Web 制作協力。"),
- ("https://biol.fpark.tmu.ac.jp/plantecol/", "leaf", "植物生態学研究室",
-  "東京都立大学 — Web 制作協力。"),
+ ("https://eumeda.github.io/Claude-public/", "demos",
+  {"ja":"研究・教育デモ集", "en":"Research &amp; Teaching Demos"},
+  {"ja":"非線形力学系（Strogatz）の分岐・カオス、数理生物モデル、データ可視化のインタラクティブ実装集。",
+   "en":"An interactive collection of nonlinear-dynamics (Strogatz) bifurcations and chaos, mathematical-biology models, and data visualizations."}),
+ ("https://eumeda.github.io/sire-line-fromEclipse-toSundaySilence/", "sire",
+  {"ja":"サラブレッド系統年表", "en":"Thoroughbred Sire-Line Chronicle"},
+  {"ja":"Darley Arabian から Equinox までの父系（sire-line）の流れを辿る年表型ビジュアライゼーション。",
+   "en":"A timeline visualization tracing the sire-line from the Darley Arabian to Equinox."}),
+ ("https://github.com/eUmeda/Claude-papercards", "cards",
+  {"ja":"論文カード生成", "en":"Paper Card Generator"},
+  {"ja":"論文 PDF から A5 要約カード＋対訳 IMRAD PDF を生成するパイプライン（docling + LLM）。",
+   "en":"A pipeline that turns a paper PDF into an A5 summary card plus a bilingual IMRAD PDF (docling + LLM)."}),
+ ("https://mcb.fpark.tmu.ac.jp/", "mcb",
+  {"ja":"数理計算生物学研究室", "en":"Mathematical &amp; Computational Biology Lab"},
+  {"ja":"立木（Tachiki）グループ公式サイト — Web 制作協力。",
+   "en":"Official site of the Tachiki group — web development support."}),
+ ("https://biol.fpark.tmu.ac.jp/plantecol/", "leaf",
+  {"ja":"植物生態学研究室", "en":"Plant Ecology Laboratory"},
+  {"ja":"東京都立大学 — Web 制作協力。",
+   "en":"Tokyo Metropolitan University — web development support."}),
 ]
 SKILL_ITEMS = [
- ("https://github.com/eUmeda/pdf-metadata-filler", "meta", "PDF メタデータ補完",
-  "論文 PDF の Title/Author/DOI を OpenAlex・CrossRef・CiNii・OCR・LLM の多段で自動補完する Claude Code skill。"),
- ("https://github.com/eUmeda/session-resume", "resume", "セッション再開プロンプト生成",
-  "作業を中断する際、次回再開用の構造化プロンプトを LLM ベストプラクティスに沿って生成する Claude Code skill。"),
- ("https://github.com/eUmeda/LLM-prompting-bestpractice", "prompt", "プロンプト設計ベストプラクティス",
-  "Anthropic・OpenAI・Edison の 3 ベンダー統合の作法で外部 LLM 用プロンプトを設計・レビューする Claude Code skill。"),
+ ("https://github.com/eUmeda/pdf-metadata-filler", "meta",
+  {"ja":"PDF メタデータ補完", "en":"PDF Metadata Filler"},
+  {"ja":"論文 PDF の Title/Author/DOI を OpenAlex・CrossRef・CiNii・OCR・LLM の多段で自動補完する Claude Code skill。",
+   "en":"A Claude Code skill that auto-fills a paper PDF's Title/Author/DOI through a multi-stage pipeline of OpenAlex, CrossRef, CiNii, OCR, and LLM."}),
+ ("https://github.com/eUmeda/session-resume", "resume",
+  {"ja":"セッション再開プロンプト生成", "en":"Session-Resume Prompt Generator"},
+  {"ja":"作業を中断する際、次回再開用の構造化プロンプトを LLM ベストプラクティスに沿って生成する Claude Code skill。",
+   "en":"A Claude Code skill that, when you pause your work, generates a structured prompt for resuming next time, following LLM best practices."}),
+ ("https://github.com/eUmeda/LLM-prompting-bestpractice", "prompt",
+  {"ja":"プロンプト設計ベストプラクティス", "en":"Prompt-Design Best Practices"},
+  {"ja":"Anthropic・OpenAI・Edison の 3 ベンダー統合の作法で外部 LLM 用プロンプトを設計・レビューする Claude Code skill。",
+   "en":"A Claude Code skill for designing and reviewing prompts for external LLMs, combining the practices of three vendors — Anthropic, OpenAI, and Edison."}),
 ]
-WORK_LIST_FUN = "\n".join(
-  f'''          <li>
-            <a class="t" href="{u}">{title}</a>
-            <div class="d">{desc}</div>
-          </li>'''
-  for (u,t,title,desc) in WORK_ITEMS[:3])
 
-WORK_LIST_WORK = "\n".join(
-  f'''          <li>
-            <a class="t" href="{u}">{title}</a>
-            <div class="d">{desc}</div>
+def work_list(items, lang):
+    return "\n".join(
+      f'''          <li>
+            <a class="t" href="{u}">{title[lang]}</a>
+            <div class="d">{desc[lang]}</div>
           </li>'''
-  for (u,t,title,desc) in WORK_ITEMS[3:])
+      for (u, t, title, desc) in items)
 
-WORK_LIST_SKILLS = "\n".join(
-  f'''          <li>
-            <a class="t" href="{u}">{title}</a>
-            <div class="d">{desc}</div>
-          </li>'''
-  for (u,t,title,desc) in SKILL_ITEMS)
-
-PAGES["works"] = dict(
-  title="Works — 梅田栄作 (Eisaku Umeda) | 研究・教育デモ・可視化・Web制作",
-  desc="梅田栄作の成果物。研究・教育デモ集、サラブレッド系統年表、論文カード生成パイプライン、研究室サイト制作。Web とコードでつくる作品。",
-  ld=False,
-  main=f"""
+def works_main(lang):
+    return f"""
       <section class="sec"><h2>Works</h2>
         <h3 class="sub-h">Publications</h3>
         {FEATURE}
         <h3 class="sub-h">Made for Fun</h3>
         <ul class="worklist">
-{WORK_LIST_FUN}
+{work_list(WORK_ITEMS[:3], lang)}
         </ul>
         <h3 class="sub-h">Claude Code Skills</h3>
         <ul class="worklist">
-{WORK_LIST_SKILLS}
+{work_list(SKILL_ITEMS, lang)}
         </ul>
         <h3 class="sub-h">Made for Work</h3>
         <ul class="worklist">
-{WORK_LIST_WORK}
+{work_list(WORK_ITEMS[3:], lang)}
         </ul>
       </section>
-""",
-  side=None)
+"""
 
-PAGES["creative"] = dict(
-  title="Creative — 犬井作 (Tsukuru Inui) | 梅田栄作 (Eisaku Umeda)",
-  desc="梅田栄作は犬井作（Tsukuru Inui）名義で創作活動をしています。これまでの作品と今後の活動を集約予定。",
-  ld=False,
-  main=f"""
+CREATIVE_MAIN = {
+ "ja": """
       <section class="sec"><h2>Creative</h2>
         <p class="lead">梅田栄作は、<b>犬井作（Tsukuru Inui）</b>名義で創作活動をしています。</p>
         <ul class="worklist">
@@ -267,7 +325,19 @@ PAGES["creative"] = dict(
         <p class="note">創作のページは現在準備中です。完成までしばらくお待ちください。</p>
       </section>
 """,
-  side=None)
+ "en": """
+      <section class="sec"><h2>Creative</h2>
+        <p class="lead">Eisaku Umeda creates under the pen name <b>Tsukuru Inui (犬井作)</b>.</p>
+        <ul class="worklist">
+          <li>
+            <a class="t" href="/inui">Tsukuru Inui / 犬井作</a><span class="wip">under construction</span>
+            <div class="d">A page gathering creative work under the Tsukuru Inui name. Past works and future activities will be collected here.</div>
+          </li>
+        </ul>
+        <p class="note">The creative page is currently in preparation. Please bear with me until it is complete.</p>
+      </section>
+""",
+}
 
 BOOK_URL = "https://www.stevenstrogatz.com/books/nonlinear-dynamics-and-chaos-with-applications-to-physics-biology-chemistry-and-engineering"
 ROUTLEDGE_URL = "https://www.routledge.com/Nonlinear-Dynamics-and-Chaos-With-Applications-to-Physics-Biology-Chemistry-and-Engineering/Strogatz/p/book/9780367026509"
@@ -276,36 +346,8 @@ JOYWHY_APPLE = "https://podcasts.apple.com/us/podcast/the-joy-of-why/id160894887
 STROGATZ_URL = "https://www.stevenstrogatz.com/"
 SYNC_URL = "https://www.amazon.co.jp/dp/4150504032"
 
-# 書影の代替: 本家カバーの複製ではなく、位相図モチーフのオリジナル tribute 図
-COVER_ART = """<svg viewBox="0 0 120 120" role="img" aria-label="位相図モチーフ">
-  <g stroke="#a9d49a" stroke-width="1.4" fill="none">
-    <path d="M60 18 C 26 22, 16 60, 40 84 C 64 108, 104 92, 100 62 C 97 38, 70 34, 62 54 C 56 70, 76 78, 84 66"/>
-  </g>
-  <path d="M30 96 C 60 110, 100 96, 104 64" fill="none" stroke="#c8a85c" stroke-width="1.3"/>
-  <circle cx="73" cy="59" r="3.4" fill="#c8a85c"/>
-  <circle cx="60" cy="54" r="3" fill="#fff" stroke="#1b330d" stroke-width="1.2"/>
-</svg>"""
-
-# SYNC 用の代替書影: 同期する振動子モチーフ (実物カバーの複製ではない)
-COVER_ART_SYNC = """<svg viewBox="0 0 120 120" role="img" aria-label="同期する振動子モチーフ">
-  <line x1="16" y1="86" x2="104" y2="86" stroke="#a9d49a" stroke-width="1" opacity="0.5"/>
-  <g stroke="#a9d49a" stroke-width="2.2">
-    <line x1="30" y1="86" x2="30" y2="48"/>
-    <line x1="54" y1="86" x2="54" y2="48"/>
-    <line x1="78" y1="86" x2="78" y2="48"/>
-    <line x1="102" y1="86" x2="102" y2="48"/>
-  </g>
-  <g fill="#c8a85c">
-    <circle cx="30" cy="44" r="4"/><circle cx="54" cy="44" r="4"/>
-    <circle cx="78" cy="44" r="4"/><circle cx="102" cy="44" r="4"/>
-  </g>
-</svg>"""
-
-PAGES["homage"] = dict(
-  title="Homage — Steven Strogatz への敬意 | 梅田栄作 (Eisaku Umeda)",
-  desc="このサイトは数学者 Steven Strogatz の個人サイト stevenstrogatz.com へのオマージュ（パロディ）です。著書 SYNC（早川書房）・Nonlinear Dynamics and Chaos、ポッドキャスト The Joy of Why、本家サイトへのリンク。",
-  ld=False,
-  main=f"""
+HOMAGE_MAIN = {
+ "ja": f"""
       <section class="sec"><h2>An Homage to Steven Strogatz</h2>
         <p class="manifesto">このサイトは数学者 Steven Strogatz の個人サイト stevenstrogatz.com のデザインをできるだけコピーしています。作家・奈須きのこが講談社BOXを愛するあまりそのデザインを完全コピーした同人誌を発行したエピソードがあります。それと同じことをしました。氏の著作の邦訳は、学部生時代の私を大いに刺激しました。私は彼を尊敬しています</p>
         <p class="lead">そして本家はこちら。</p>
@@ -345,13 +387,50 @@ PAGES["homage"] = dict(
         </ul>
       </section>
 """,
-  side=None)
+ "en": f"""
+      <section class="sec"><h2>An Homage to Steven Strogatz</h2>
+        <p class="manifesto">This site copies, as closely as it can, the design of mathematician Steven Strogatz's personal site, stevenstrogatz.com. There is a story about the novelist Kinoko Nasu, who loved Kodansha BOX so much that he published a <i>doujinshi</i> (a self-made book) that completely copied its design. I have done the same thing. The Japanese translations of Strogatz's books inspired me greatly in my undergraduate years. I admire him.</p>
+        <p class="lead">And here is the original.</p>
+        <a class="visit-original" href="{STROGATZ_URL}">stevenstrogatz.com →</a>
+      </section>
+      <hr class="div">
+      <section class="sec"><h2>When in doubt, read this</h2>
+        <h3 class="sub-h">For general readers</h3>
+        <div class="tribute">
+          <div>
+            <span class="authors">Steven Strogatz (Japanese edition: supervised by Yoshiki Kuramoto, translated by Tsutomu Nagao)</span>
+            <a class="ttl" href="{SYNC_URL}">SYNC: The Emerging Science of Spontaneous Order</a>
+            <span class="venue">Japanese edition: Hayakawa Bunko NF 403, the “Enjoying Mathematics” series — Hayakawa Publishing</span>
+            <p class="d">A single volume brimming with the delight of using mathematics to unravel the phenomena of life, and with a researcher's stance toward the world. The Japanese edition is still on sale for Kindle.</p>
+            <a class="more" href="{SYNC_URL}">Read on Kindle (Amazon.co.jp)</a>
+          </div>
+        </div>
+        <h3 class="sub-h">Textbook</h3>
+        <div class="tribute">
+          <div>
+            <span class="authors">Steven H. Strogatz</span>
+            <a class="ttl" href="{BOOK_URL}">Nonlinear Dynamics and Chaos</a>
+            <span class="venue">With Applications to Physics, Biology, Chemistry, and Engineering — 3rd ed., CRC Press (2024)</span>
+            <p class="d">The standard textbook on nonlinear dynamics and chaos. A classic that conveys bifurcations, attractors, and chaos through equations, figures, and intuition.</p>
+            <a class="more" href="{BOOK_URL}">strogatz.com</a>
+            <a class="more" href="{ROUTLEDGE_URL}">publisher</a>
+          </div>
+        </div>
+      </section>
+      <hr class="div">
+      <section class="sec"><h2>His Podcast</h2>
+        <ul class="worklist">
+          <li>
+            <a class="t" href="{JOYWHY_URL}">The Joy of Why</a>
+            <div class="d">A Quanta Magazine podcast in which Strogatz asks leading scientists and mathematicians the big questions. Available on <a href="{JOYWHY_APPLE}">Apple&nbsp;Podcasts</a> and elsewhere.</div>
+          </li>
+        </ul>
+      </section>
+""",
+}
 
-PAGES["contact"] = dict(
-  title="Contact — 梅田栄作 (Eisaku Umeda) | 東京都立大学",
-  desc="梅田栄作 (Eisaku Umeda) への連絡先。X (@EIUmeda)・researchmap・GitHub。東京都立大学 理学研究科 生命科学専攻。",
-  ld=False,
-  main="""
+CONTACT_MAIN = {
+ "ja": """
       <section class="sec"><h2>Contact</h2>
         <p class="lead">ご連絡は以下のいずれかからどうぞ。</p>
         <ul class="worklist">
@@ -362,7 +441,36 @@ PAGES["contact"] = dict(
         <p class="note">所属: 東京都立大学 理学研究科 生命科学専攻（南大沢キャンパス）。</p>
       </section>
 """,
-  side=None)
+ "en": """
+      <section class="sec"><h2>Contact</h2>
+        <p class="lead">Feel free to reach me through any of the following.</p>
+        <ul class="worklist">
+          <li><a class="t" href="https://x.com/EIUmeda">X / @EIUmeda</a><div class="d">Daily updates on research and creative work. Direct messages welcome.</div></li>
+          <li><a class="t" href="https://researchmap.jp/eisaku_umeda">researchmap</a><div class="d">Research output and profile.</div></li>
+          <li><a class="t" href="https://github.com/eUmeda">github / @eUmeda</a><div class="d">Repositories of code and works.</div></li>
+        </ul>
+        <p class="note">Affiliation: Department of Biological Sciences, Graduate School of Science, Tokyo Metropolitan University (Minami-Osawa campus).</p>
+      </section>
+""",
+}
+
+# assemble PAGES[key][lang] = dict(title, desc, ld, main)
+MAINS = {
+ "home":     {l: home_main(l)     for l in LANGS},
+ "research": {l: research_main(l) for l in LANGS},
+ "works":    {l: works_main(l)    for l in LANGS},
+ "creative": CREATIVE_MAIN,
+ "homage":   HOMAGE_MAIN,
+ "contact":  CONTACT_MAIN,
+}
+LD_PAGES = {"home"}
+
+PAGES = {}
+for _k in ("home", "research", "works", "creative", "homage", "contact"):
+    PAGES[_k] = {
+        l: dict(title=TITLES[_k][l], desc=DESCS[_k][l], ld=(_k in LD_PAGES), main=MAINS[_k][l])
+        for l in LANGS
+    }
 
 # ───────────────────────────── template ─────────────────────────────
 LD_JSON = """<script type="application/ld+json">
@@ -388,9 +496,9 @@ LD_JSON = """<script type="application/ld+json">
 }
 </script>"""
 
-def nav_html(active):
+def nav_html(active, lang):
     items = "\n".join(
-        f'        <li><a href="{clean_link(href)}"{" class=\"active\"" if k==active else ""}>{label}</a></li>'
+        f'        <li><a href="{page_url(href, lang)}"{" class=\"active\"" if k==active else ""}>{label}</a></li>'
         for (k,label,href) in NAV)
     return f"""      <nav class="vnav" aria-label="Site">
       <ul>
@@ -398,25 +506,43 @@ def nav_html(active):
       </ul>
       </nav>"""
 
-def rail_html(active):
-    recently = RECENTLY if active == "home" else ""
+def rail_html(active, lang):
+    recently = RECENTLY[lang] if active == "home" else ""
     return f"""    <aside class="rail">
-{nav_html(active)}
+{nav_html(active, lang)}
       {recently}
       {ELSEWHERE}
     </aside>"""
 
-def foot_nav():
-    return "\n".join(f'      <li><a href="{clean_link(href)}">{label}</a></li>' for (k,label,href) in NAV)
+def foot_nav(lang):
+    return "\n".join(f'      <li><a href="{page_url(href, lang)}">{label}</a></li>' for (k,label,href) in NAV)
 
-def render(active):
-    p = PAGES[active]
+def render(active, lang):
+    p = PAGES[active][lang]
     ld = ("\n" + LD_JSON) if p.get("ld") else ""
-    _href = {k:h for k,_l,h in NAV if "#" not in h}[active]
-    url = BASE + clean_link(_href)
+    href = {k:h for k,_l,h in NAV if "#" not in h}[active]
+    ja_url = BASE + page_url(href, "ja")
+    en_url = BASE + page_url(href, "en")
+    url = en_url if lang == "en" else ja_url
+    home_u = page_url("index.html", lang)
     h1 = p["title"].split("|")[0].strip()
+    og_locale = "en_US" if lang == "en" else "ja_JP"
+    og_alt = "ja_JP" if lang == "en" else "en_US"
+    hreflang = (f'<link rel="alternate" hreflang="ja" href="{ja_url}">\n'
+                f'<link rel="alternate" hreflang="en" href="{en_url}">\n'
+                f'<link rel="alternate" hreflang="x-default" href="{ja_url}">')
+    ja_rel = page_url(href, "ja")
+    en_rel = page_url(href, "en")
+    if lang == "en":
+        toggle = (f'<div class="lang-toggle" aria-label="Language">'
+                  f'<a href="{ja_rel}" hreflang="ja" lang="ja">JP</a>'
+                  f'<span class="lang-current">EN</span></div>')
+    else:
+        toggle = (f'<div class="lang-toggle" aria-label="Language">'
+                  f'<span class="lang-current">JP</span>'
+                  f'<a href="{en_rel}" hreflang="en" lang="en">EN</a></div>')
     return f"""<!DOCTYPE html>
-<html lang="ja">
+<html lang="{lang}">
 <head>
 <meta charset="UTF-8">
 <script>if(location.hostname.endsWith("pages.dev"))location.replace("https://www.eisaku-umeda.com"+location.pathname+location.search+location.hash);</script>
@@ -426,6 +552,7 @@ def render(active):
 <meta name="description" content="{p['desc']}">
 <meta name="author" content="梅田栄作 / Eisaku Umeda">
 <link rel="canonical" href="{url}">
+{hreflang}
 <meta name="theme-color" content="#dedede">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="{p['title']}">
@@ -434,7 +561,8 @@ def render(active):
 <meta property="og:image" content="{BASE}/eisaku.png">
 <meta property="og:image:width" content="1432">
 <meta property="og:image:height" content="1233">
-<meta property="og:locale" content="ja_JP">
+<meta property="og:locale" content="{og_locale}">
+<meta property="og:locale:alternate" content="{og_alt}">
 <meta property="og:site_name" content="Eisaku Umeda">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{p['title']}">
@@ -445,13 +573,13 @@ def render(active):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Mulish:ital,wght@0,200;0,300;0,400;0,600;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <div class="banner">
   <div class="banner-inner">
-    <div class="site-title"><a href="/">Eisaku&nbsp;Umeda</a></div>
+    <div class="site-title"><a href="{home_u}">Eisaku&nbsp;Umeda</a></div>
     <svg class="culm-logo" viewBox="0 0 246 66" role="img" aria-label="Culm">
       <line x1="18" y1="14" x2="227.2" y2="14" stroke="#c8a85c" stroke-width="1.2"/>
       <text x="122.6" y="50" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="40" fill="#c8a85c"><tspan>C</tspan><tspan dx="23">U</tspan><tspan dx="23">L</tspan><tspan dx="23">M</tspan></text>
@@ -466,14 +594,16 @@ def render(active):
       <h1 class="vh">{h1}</h1>
 {p['main']}
     </main>
-{rail_html(active)}
+{rail_html(active, lang)}
   </div>
 </div>
+
+{toggle}
 
 <footer>
   <div class="foot-inner">
     <ul class="foot-nav">
-{foot_nav()}
+{foot_nav(lang)}
     </ul>
     <div class="foot-meta">
       <span>© 2026 梅田栄作 · Eisaku Umeda</span>
@@ -488,24 +618,45 @@ def render(active):
 </html>
 """
 
+# clean a stale page if present (both locales)
 for stale in ("about" + ".html",):
-    stale_path = os.path.join(OUT, stale)
-    if os.path.exists(stale_path):
-        os.remove(stale_path)
+    for d in (OUT, os.path.join(OUT, "en")):
+        sp = os.path.join(d, stale)
+        if os.path.exists(sp):
+            os.remove(sp)
 
+# write JP (root) + EN (en/) pages
 for (k,_,href) in NAV:
     if k not in PAGES:
         continue
     with open(os.path.join(OUT, href), "w", encoding="utf-8") as f:
-        f.write(render(k))
-    print("wrote", href)
+        f.write(render(k, "ja"))
+    with open(os.path.join(OUT, "en", href), "w", encoding="utf-8") as f:
+        f.write(render(k, "en"))
+    print("wrote", href, "+ en/" + href)
 
-_pages = ["/"] + [clean_link(h) for k,_l,h in NAV if "#" not in h and h!="index.html"] + ["/inui"]
+# robots.txt (unchanged)
 open(os.path.join(OUT,"robots.txt"),"w",encoding="utf-8").write(
     "User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-Web\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
+
+# sitemap.xml — bilingual: JP + EN url per page, each with reciprocal xhtml:link alternates.
 LASTMOD = "2026-06-14"
-_locs = "\n".join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>' % (BASE,p,LASTMOD) for p in _pages)
+_bilingual = [h for k,_l,h in NAV if "#" not in h]  # the 6 generated pages
+_blocks = []
+for href in _bilingual:
+    ja = BASE + page_url(href, "ja")
+    en = BASE + page_url(href, "en")
+    alts = ('<xhtml:link rel="alternate" hreflang="ja" href="%s"/>'
+            '<xhtml:link rel="alternate" hreflang="en" href="%s"/>'
+            '<xhtml:link rel="alternate" hreflang="x-default" href="%s"/>') % (ja, en, ja)
+    _blocks.append('  <url><loc>%s</loc><lastmod>%s</lastmod>%s</url>' % (ja, LASTMOD, alts))
+    _blocks.append('  <url><loc>%s</loc><lastmod>%s</lastmod>%s</url>' % (en, LASTMOD, alts))
+# inui — JP-only placeholder (noindex), no alternates
+_blocks.append('  <url><loc>%s/inui</loc><lastmod>%s</lastmod></url>' % (BASE, LASTMOD))
+_locs = "\n".join(_blocks)
 open(os.path.join(OUT,"sitemap.xml"),"w",encoding="utf-8").write(
-    '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % _locs)
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+    'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s\n</urlset>\n' % _locs)
 print("wrote robots.txt + sitemap.xml")
 print("done")
