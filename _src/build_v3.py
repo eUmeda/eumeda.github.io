@@ -5,7 +5,7 @@ import os
 
 OUT = "/tmp/eumeda-hub/_version3"
 os.makedirs(OUT, exist_ok=True)
-BASE = "https://eisaku-umeda.pages.dev"
+BASE = "https://www.eisaku-umeda.com"
 
 NAV = [
     ("home",     "home",     "index.html"),
@@ -99,6 +99,7 @@ ELSEWHERE = """<h3>elsewhere</h3>
 <ul class="affil links">
   <li><a href="https://x.com/EIUmeda">X / @EIUmeda</a></li>
   <li><a href="https://researchmap.jp/eisaku_umeda">researchmap</a></li>
+  <li><a href="https://orcid.org/0009-0001-8731-0583">ORCID</a></li>
   <li><a href="https://github.com/eUmeda">github / @eUmeda</a></li>
 </ul>"""
 
@@ -368,12 +369,12 @@ LD_JSON = """<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": "https://eisaku-umeda.pages.dev/#person",
+  "@id": "https://www.eisaku-umeda.com/#person",
   "name": "梅田栄作",
   "alternateName": ["Eisaku Umeda", "犬井作", "Tsukuru Inui"],
   "givenName": "栄作", "familyName": "梅田",
-  "url": "https://eisaku-umeda.pages.dev/",
-  "image": "https://eisaku-umeda.pages.dev/eisaku.png",
+  "url": "https://www.eisaku-umeda.com/",
+  "image": "https://www.eisaku-umeda.com/eisaku.png",
   "jobTitle": "博士課程学生 (Doctoral Student)",
   "affiliation": { "@type": "CollegeOrUniversity", "name": "東京都立大学 理学研究科 生命科学専攻", "url": "https://www.tmu.ac.jp/" },
   "alumniOf": { "@type": "CollegeOrUniversity", "name": "東京都立大学", "url": "https://www.tmu.ac.jp/" },
@@ -383,7 +384,7 @@ LD_JSON = """<script type="application/ld+json">
     { "@type": "Organization", "name": "個体群生態学会" },
     { "@type": "Organization", "name": "日本数理生物学会" }
   ],
-  "sameAs": ["https://x.com/EIUmeda","https://researchmap.jp/eisaku_umeda","https://github.com/eUmeda"]
+  "sameAs": ["https://x.com/EIUmeda","https://researchmap.jp/eisaku_umeda","https://github.com/eUmeda","https://orcid.org/0009-0001-8731-0583","https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202601009337600570"]
 }
 </script>"""
 
@@ -413,10 +414,12 @@ def render(active):
     ld = ("\n" + LD_JSON) if p.get("ld") else ""
     _href = {k:h for k,_l,h in NAV if "#" not in h}[active]
     url = BASE + clean_link(_href)
+    h1 = p["title"].split("|")[0].strip()
     return f"""<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>if(location.hostname.endsWith("pages.dev"))location.replace("https://www.eisaku-umeda.com"+location.pathname+location.search+location.hash);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index,follow">
 <title>{p['title']}</title>
@@ -460,6 +463,7 @@ def render(active):
 <div class="shell">
   <div class="layout">
     <main class="main">
+      <h1 class="vh">{h1}</h1>
 {p['main']}
     </main>
 {rail_html(active)}
@@ -499,7 +503,8 @@ for (k,_,href) in NAV:
 _pages = ["/"] + [clean_link(h) for k,_l,h in NAV if "#" not in h and h!="index.html"] + ["/inui"]
 open(os.path.join(OUT,"robots.txt"),"w",encoding="utf-8").write(
     "User-agent: *\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-Web\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
-_locs = "\n".join('  <url><loc>%s%s</loc></url>' % (BASE,p) for p in _pages)
+LASTMOD = "2026-06-14"
+_locs = "\n".join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>' % (BASE,p,LASTMOD) for p in _pages)
 open(os.path.join(OUT,"sitemap.xml"),"w",encoding="utf-8").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % _locs)
 print("wrote robots.txt + sitemap.xml")
